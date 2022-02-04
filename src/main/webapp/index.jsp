@@ -20,7 +20,7 @@
                 <!-- Apenas enquanto nao faco o css -->
                 <br>
                 <!-- Apenas enquanto nao faco o css -->
-                <a class ="profissionais" href="profissional/profissional-login.html">
+                <a class ="profissionais" href="profissional/profissional-login.jsp">
                     Disponibilize Suas Consultas
                 </a>
             </div>
