@@ -13,10 +13,9 @@
 	<div align="center">
 		<h1>Gerenciamento de Clientes</h1>
 		<h2>
-			<a href="/<%=contextPath%>">Menu Principal</a> &nbsp;&nbsp;&nbsp; <a
+			<a href="/<%=contextPath%>">Menu Principal</a> &nbsp;&nbsp;&nbsp; 
 		</h2>
 	</div>
-
 	<div align="center">
 		<table border="1">
 			<caption>Lista de Clientes</caption>

@@ -4,8 +4,12 @@ import br.ufscar.dc.dsw.dao.ClienteDAO;
 import br.ufscar.dc.dsw.domain.Cliente;
 
 import java.io.IOException;
+import java.net.URLClassLoader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Date;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,14 +48,18 @@ public class ClienteController extends HttpServlet {
 
         try {
             switch (action) {
-                case "/listar":
-                    lista(request, response);
-                    break;
+                case "/cadastrar":
+                    cadastrar(request, response);
+                case "/loginPage":
+                    apresentaFormLogin(request, response);
+                case "/cadastro":
+                    apresentaFormCadastro(request, response);
+
                 default:
                     lista(request, response);
                     break;
             }
-        } catch (RuntimeException | IOException | ServletException e) {
+        } catch (RuntimeException | IOException | ServletException | ParseException e) {
             throw new ServletException(e);
         }
     }
@@ -62,6 +70,47 @@ public class ClienteController extends HttpServlet {
         request.setAttribute("listaClientes", listaClientes);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/lista.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private void apresentaFormLogin(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/login.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/cadastro.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void cadastrar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException {
+        request.setCharacterEncoding("UTF-8");
+        String cpf = request.getParameter("cpf");
+        String nome = request.getParameter("nome");
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+        String telefone = request.getParameter("telefone");
+        String sexo = request.getParameter("sexo");
+
+        String startDateStrNascimento = request.getParameter("nascimento");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+
+        try {
+            Date nascimento = sdf.parse(startDateStrNascimento);
+
+            Cliente cliente = new Cliente(cpf, nome, email, senha, telefone, sexo, nascimento);
+            dao.insert(cliente);
+
+            // NAO É NO LISTA QUE É PRA REDIRECIONAAAAAAAAAAAAAAAAAAAR
+            response.sendRedirect("lista");
+
+        } catch (RuntimeException | ParseException | IOException e) {
+            throw new ServletException(e);
+        }
+
     }
 
 }

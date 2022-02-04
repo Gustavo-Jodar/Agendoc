@@ -7,14 +7,16 @@
         <title>Agendoc | Plataforma de consultas online</title>
     </head>
     <body>
+        <%
+			String contextPath = request.getContextPath().replace("/", "");
+		%>
         <div id= "container">
             <!-- apenas para fins de testes -->
-            <a href="clientes">Clientes Cadastrados</a>
+            <a href="clientes/listar">Clientes Cadastrados</a>
             <!-- apenas para fins de testes -->
             <div class="buttons-container">
-                <a class ="clientes" href="clientes"> 
-                    Marcar Consulta
-                </a>
+                
+                <a href="/<%= contextPath%>/clientes/loginPage">Marcar Consulta</a>
                 <!-- Apenas enquanto nao faco o css -->
                 <br>
                 <!-- Apenas enquanto nao faco o css -->
