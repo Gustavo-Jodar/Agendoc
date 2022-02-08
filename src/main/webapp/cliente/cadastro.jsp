@@ -40,7 +40,7 @@
             %>
 
             <main>
-                <form action="cadastrar" method="POST" id="register-prof">
+                <form action="saveCliente" method="POST" id="register-prof">
                     <fieldset >
                         <legend>Seus dados</legend>
                         <div class="input-block">

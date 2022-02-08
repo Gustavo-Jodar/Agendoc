@@ -9,15 +9,18 @@ public class Profissional {
     private String email;
     private String senha;
     private String bio;
+    private String area;
     private String especialidade;
     private Date nascimento;
 
-    public Profissional(String cpf, String nome, String email, String senha, String bio, String especialidade, Date nascimento) {
+    public Profissional(String cpf, String nome, String email, String senha, String bio, String area,
+            String especialidade, Date nascimento) {
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.bio = bio;
+        this.area = area;
         this.especialidade = especialidade;
         this.nascimento = nascimento;
     }
@@ -60,6 +63,14 @@ public class Profissional {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getEspecialidade() {

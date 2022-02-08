@@ -48,13 +48,13 @@ public class ClienteController extends HttpServlet {
 
         try {
             switch (action) {
-                case "/cadastrar":
-                    cadastrar(request, response);
+                case "/saveCliente":
+                    saveCliente(request, response);
                     break;
-                case "/loginPage":
+                case "/showLogin":
                     apresentaFormLogin(request, response);
                     break;
-                case "/cadastro":
+                case "/showCadastroCliente":
                     apresentaFormCadastro(request, response);
                     break;
                 default:
@@ -87,7 +87,7 @@ public class ClienteController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void cadastrar(HttpServletRequest request, HttpServletResponse response)
+    private void saveCliente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         request.setCharacterEncoding("UTF-8");
         String cpf = request.getParameter("cpf");
@@ -100,7 +100,7 @@ public class ClienteController extends HttpServlet {
         String startDateStrNascimento = request.getParameter("birth-date");
         startDateStrNascimento = startDateStrNascimento.replace('/', '-');
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 
         try {
             Date nascimento = sdf.parse(startDateStrNascimento);

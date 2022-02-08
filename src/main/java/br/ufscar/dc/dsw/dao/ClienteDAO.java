@@ -13,9 +13,7 @@ import br.ufscar.dc.dsw.domain.Cliente;
 
 public class ClienteDAO extends GenericDAO {
     public void insert(Cliente cliente) {
-
-        String sql = "INSERT INTO Cliente(cpf, nome, email, senha, telefone, sexo, nascimento) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+        String sql = "INSERT INTO Users(cpf, nome, email, senha, nascimento, papel) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -24,10 +22,26 @@ public class ClienteDAO extends GenericDAO {
             statement.setString(2, cliente.getnome());
             statement.setString(3, cliente.getEmail());
             statement.setString(4, cliente.getSenha());
-            statement.setString(5, cliente.getTelefone());
-            statement.setString(6, cliente.getSexo());
             java.sql.Date sqlDNascimento = new java.sql.Date(cliente.getNascimento().getTime());
-            statement.setDate(7, sqlDNascimento);
+            statement.setDate(5, sqlDNascimento);
+            statement.setString(6, "CLIENTE");
+            statement.executeUpdate();
+
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        sql = "INSERT INTO Clientes(cpf, telefone, sexo) VALUES (?, ?, ?)";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, cliente.getCpf());
+            statement.setString(2, cliente.getTelefone());
+            statement.setString(3, cliente.getSexo());
             statement.executeUpdate();
 
             statement.close();
@@ -38,16 +52,16 @@ public class ClienteDAO extends GenericDAO {
     }
 
     public List<Cliente> getAll() {
-
         List<Cliente> listaClientes = new ArrayList<>();
-
-        String sql = "SELECT * FROM Cliente";
 
         try {
             Connection conn = this.getConnection();
-            Statement statement = conn.createStatement();
+            Statement statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            ResultSet resultSet = statement.executeQuery(sql);
+            ResultSet resultSet = statement.executeQuery(
+                    "SELECT Users.cpf, nome, email, senha, nascimento, telefone, sexo FROM Users, Clientes WHERE (Users.cpf=Clientes.cpf);");
+
+            int contador = 0;
             while (resultSet.next()) {
                 String cpf = resultSet.getString("cpf");
                 String nome = resultSet.getString("nome");
@@ -59,6 +73,7 @@ public class ClienteDAO extends GenericDAO {
 
                 Cliente cliente = new Cliente(cpf, nome, email, senha, telefone, sexo, nascimento);
                 listaClientes.add(cliente);
+                contador = contador + 1;
             }
             resultSet.close();
             statement.close();

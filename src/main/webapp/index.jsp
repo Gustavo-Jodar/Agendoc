@@ -17,11 +17,11 @@
             <!-- apenas para fins de testes -->
             <div class="buttons-container">
                 
-                <a href="/<%= contextPath%>/clientes/loginPage">Marcar Consulta</a>
+                <a href="/<%= contextPath%>/clientes/showLogin">Marcar Consulta</a>
                 <!-- Apenas enquanto nao faco o css -->
                 <br>
                 <!-- Apenas enquanto nao faco o css -->
-                <a class ="profissionais" href="profissionais/cadastro">
+                <a class ="profissionais" href="profissionais/showCadastroProfissional">
                     Disponibilize Suas Consultas
                 </a>
             </div>

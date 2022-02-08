@@ -46,7 +46,7 @@
         <button type="submit" form="login-prof">Log-in</button>
 
     <div align="center">
-        <a href="/<%= contextPath%>/clientes/cadastro">Ainda não possui um cadastro? Cadastre-se já!</a>
+        <a href="/<%= contextPath%>/clientes/showCadastroCliente">Ainda não possui um cadastro? Cadastre-se já!</a>
         </footer>
 </main>
 </div>

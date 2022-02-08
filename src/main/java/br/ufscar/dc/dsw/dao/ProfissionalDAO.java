@@ -13,9 +13,7 @@ import br.ufscar.dc.dsw.domain.Profissional;
 
 public class ProfissionalDAO extends GenericDAO {
     public void insert(Profissional profissional) {
-
-        String sql = "INSERT INTO Profissional(cpf, nome, email, senha, bio, especialidade, nascimento) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+        String sql = "INSERT INTO Users(cpf, nome, email, senha, nascimento, papel) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -24,10 +22,28 @@ public class ProfissionalDAO extends GenericDAO {
             statement.setString(2, profissional.getnome());
             statement.setString(3, profissional.getEmail());
             statement.setString(4, profissional.getSenha());
-            statement.setString(5, profissional.getBio());
-            statement.setString(6, profissional.getEspecialidade());
             java.sql.Date sqlDNascimento = new java.sql.Date(profissional.getNascimento().getTime());
-            statement.setDate(7, sqlDNascimento);
+            statement.setDate(5, sqlDNascimento);
+            statement.setString(6, "PROFISSIONAL");
+            statement.executeUpdate();
+
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        sql = "INSERT INTO Profissionais(cpf, area, especialidade, bio) VALUES (?, ?, ?, ?)";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, profissional.getCpf());
+            statement.setString(2, profissional.getArea());
+            statement.setString(3, profissional.getEspecialidade());
+            statement.setString(4, profissional.getBio());
+
             statement.executeUpdate();
 
             statement.close();
@@ -41,7 +57,7 @@ public class ProfissionalDAO extends GenericDAO {
 
         List<Profissional> listaProfissionais = new ArrayList<>();
 
-        String sql = "SELECT * FROM Profissional";
+        String sql = "SELECT Users.cpf, nome, email, senha, nascimento, area, especialidade, bio FROM Users, Profissionais WHERE (Users.cpf=Profissionais.cpf);";
 
         try {
             Connection conn = this.getConnection();
@@ -54,10 +70,12 @@ public class ProfissionalDAO extends GenericDAO {
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
                 String bio = resultSet.getString("bio");
+                String area = resultSet.getString("area");
                 String especialidade = resultSet.getString("especialidade");
                 Date nascimento = resultSet.getDate("nascimento");
 
-                Profissional profissional = new Profissional(cpf, nome, email, senha, bio, especialidade, nascimento);
+                Profissional profissional = new Profissional(cpf, nome, email, senha, bio, area, especialidade,
+                        nascimento);
                 listaProfissionais.add(profissional);
             }
             resultSet.close();

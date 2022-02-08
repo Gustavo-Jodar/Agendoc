@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-<title>Livraria Virtual</title>
+<title>Agendoc</title>
 </head>
 <body>
 	<%
@@ -24,8 +24,9 @@
 				<th>Nome</th>
 				<th>Email</th>
 				<th>Senha</th>
-				<th>Biografia</th>
+				<th>Area</th>
 				<th>Especialidade</th>
+				<th>Biografia</th>
 				<th>Nascimento</th>
 			</tr>
 			<c:forEach var="profissional" items="${requestScope.listaProfissionais}">
@@ -34,8 +35,9 @@
 					<td>${profissional.nome}</td>
 					<td>${profissional.email}</td>
 					<td>${profissional.senha}</td>
-					<td>${profissional.bio}</td>
+					<td>${profissional.area}</td>
 					<td>${profissional.especialidade}</td>
+					<td>${profissional.bio}</td>
 					<td>${profissional.nascimento}</td>
 				</tr>
 			</c:forEach>

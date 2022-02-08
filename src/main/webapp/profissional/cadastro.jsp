@@ -31,7 +31,7 @@
 
             <main>
                 <fmt:bundle basename="messages">
-                    <form action="saveCadastro" method="POST" id="register-prof">
+                    <form action="saveProfissional" method="POST" id="register-prof">
                         <fieldset>
                             <legend>Seus dados</legend>
 
@@ -83,7 +83,7 @@
 
                             <div class="input-block">
                                 <label for="especialidade">Especialidade</label>
-                                <input type="especialidade" id="especialidade" required>
+                                <input type="especialidade" id="especialidade" name="especialidade" required>
                             </div>
                         </fieldset>
 
@@ -123,7 +123,7 @@
                     </form>
                 </fmt:bundle>
                 <footer>
-                    <button type="submit" form="register-prof" value="saveCadastro">Salvar cadastro</button>
+                    <button type="submit" form="register-prof">Salvar cadastro</button>
                 </footer>
             </main>
         </div>

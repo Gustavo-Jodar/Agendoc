@@ -48,13 +48,13 @@ public class ProfissionalController extends HttpServlet {
 
         try {
             switch (action) {
-                case "/saveCadastro":
-                    saveCadastro(request, response);
+                case "/saveProfissional":
+                    saveProfissional(request, response);
                     break;
-                case "/loginPage":
+                case "/showLogin":
                     apresentaFormLogin(request, response);
                     break;
-                case "/cadastro":
+                case "/showCadastroProfissional":
                     apresentaFormCadastro(request, response);
                     break;
                 default:
@@ -87,7 +87,7 @@ public class ProfissionalController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void saveCadastro(HttpServletRequest request, HttpServletResponse response)
+    private void saveProfissional(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         request.setCharacterEncoding("UTF-8");
         String cpf = request.getParameter("cpf");
@@ -95,15 +95,16 @@ public class ProfissionalController extends HttpServlet {
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
         String bio = request.getParameter("bio");
-        String especialidade = request.getParameter("area");
+        String especialidade = request.getParameter("especialidade");
+        String area = request.getParameter("area");
 
         String startDateStrNascimento = request.getParameter("nascimento");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 
         try {
             Date nascimento = sdf.parse(startDateStrNascimento);
 
-            Profissional profissional = new Profissional(cpf, nome, email, senha, bio, especialidade, nascimento);
+            Profissional profissional = new Profissional(cpf, nome, email, senha, bio, area, especialidade, nascimento);
             dao.insert(profissional);
 
             response.sendRedirect("lista");
