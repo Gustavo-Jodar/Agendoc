@@ -3,58 +3,82 @@
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
-<head>
-<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-<meta content="utf-8" http-equiv="encoding">
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Agendoc | Plataforma para agendamentos de consultas online</title> 
 
-<title>Agendoc</title>
-</head>
-<body>
-	<%
-		String contextPath = request.getContextPath().replace("/", "");
-	%>
-	<div align="center">
-		<h1>Cadastro de Novo Cliente </h1>
-		<h2>
-			<a href="/<%=contextPath%>">Menu Principal</a> &nbsp;&nbsp;&nbsp;
-		</h2>
-	</div>
+        <link rel="stylesheet" href="../styles/main.css"> 
+        <link rel="stylesheet" href="../styles/header.css">
+        <link rel="stylesheet" href="../styles/page-profissional-login.css"> 
+        <link rel="stylesheet" href="../styles/forms.css">
 
-	<div align="center">
-		<fmt:bundle basename="messages">
-            <form style="font-family:Comic Sans Ms; text-align: center;" action="cadastrar" method="POST">
-                <fieldset >
-                    <legend>CPF: </legend>
-                    <input type="text" name="cpf" /><br/>
-                </fieldset>
-				<fieldset >
-                    <legend>Nome: </legend>
-                    <input type="text" name="nome" /><br/>
-                </fieldset>
-				<fieldset >
-                    <legend>Email: </legend>
-                    <input type="text" name="email" /><br/>
-                </fieldset>
-                <fieldset >
-                    <legend>Senha: </legend>
-                    <input type="password" name="senha" /><br/>
-                </fieldset>
-				<fieldset >
-                    <legend>Telefone: </legend>
-                    <input type="text" name="telefone" /><br/>
-                </fieldset>
-                <fieldset >
-                    <legend>Sexo: </legend>
-                    <input type="text" name="sexo" /><br/>
-                </fieldset>
-				<fieldset >
-                    <legend>Data de nascimento: </legend>
-                    <input type="text" name="nascimento" /><br/>
-                </fieldset>
-				<input type="submit" value="Cadastrar"/>
+        <script src="../scripts/addField.js" defer></script>
 
-			</form>
-        </fmt:bundle>
-	</div>
-</body>
+    </head>
+    <body id= "page-prof-register">
+
+        <div id="container">
+            
+            <header class="page-header">
+                <div class="top-bar-container">
+                    <a href="../index.jsp">
+                    <img src="../images/back.svg" alt="Voltar">
+                    </a>
+                </div>
+
+                <div class="header-content">
+                    <strong>Quer ter acesso às nossas especialidades online?</strong> 
+                    <p>Basta preencher esse formulário de cadastro</p>
+                </div>
+                <br/><br/><br/>
+            </header>
+
+            <%
+                String contextPath = request.getContextPath().replace("/", "");
+            %>
+
+            <main>
+                <form action="cadastrar" method="POST" id="register-prof">
+                    <fieldset >
+                        <legend>Seus dados</legend>
+                        <div class="input-block">
+                            <label for="cpf">CPF: </label>
+                            <input type="text" name="cpf" id="cpf" required/>
+                        </div>
+
+                         <div class="input-block">
+                            <label for="name">Nome Completo</label>
+                            <input name="name" id="name" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="e-mail">E-mail</label>
+                            <input name="e-mail" id="e-mail" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="pass">Senha</label>
+                            <input name="pass" id="pass" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="birth">Nascimento</label>
+                            <input type="date" name="birth-date">
+                        </div>
+                        <div class="input-block">
+                            <label>Telefone: </label>
+                            <input name="telefone" type="text"/><br/>
+                        </div>
+                        <div class="input-block">
+                            <label>Sexo: </label>
+                            <input name="Sexo" type="text"/><br/>
+                        </div>
+                    </fieldset>
+                </form>
+                <footer>
+                    <button type="submit" form="register-prof" value="Cadastrar">Salvar cadastro</button>
+                </footer>    
+            
+            </main>
+        </div>
+    </body>
 </html>

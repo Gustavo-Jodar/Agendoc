@@ -3,40 +3,53 @@
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
-<head>
-<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-<meta content="utf-8" http-equiv="encoding">
-<title>Agendoc</title>
-</head>
-<body>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Agendoc | Plataforma para agendamentos de consultas online</title> 
+
+        <link rel="stylesheet" href="../styles/main.css"> 
+        <link rel="stylesheet" href="../styles/header.css">
+        <link rel="stylesheet" href="../styles/page-profissional-login.css"> 
+        <link rel="stylesheet" href="../styles/forms.css">
+
+        <script src="../scripts/addField.js" defer></script>
+<body  id= "page-prof-register">
 	<%
 		String contextPath = request.getContextPath().replace("/", "");
-	%>
-	<div align="center">
-		<h1>Login</h1>
-		<h2>
-			<a href="/<%=contextPath%>">Menu Principal</a> &nbsp;&nbsp;&nbsp; <a
-		</h2>
-	</div>
+	%>      
+    <div id= "container">
+            <header class="page-header">
+                <div class="top-bar-container">
+                    <a href="../index.jsp">
+                    <img src="../images/back.svg" alt="Voltar">
+                    </a>
+                </div>
 
-	<div align="center">
-		<fmt:bundle basename="messages">
-            <form style="font-family:Comic Sans Ms; text-align: center;" action="index.jsp" method="POST">
-                <fieldset >
-                    <legend>Email: </legend>
-                    <input type="text" name="E-mail" /><br/>
-                </fieldset>
-                <fieldset >
-                    <legend>Senha: </legend>
-                    <input type="password" name="Senha" /><br/>
-                    <input type="submit" value="login"/>
+                <div class="header-content">
+                    <strong>Entre em nossa plataforma</strong> 
+                    <p>Basta informar seu e-mail e senha cadastrados!</p>
+                </div>
+            </header>
+<main>
+	        <form id="register-prof" action="" method="POST">
+                <fieldset>
+                    <div class="input-block">
+                        <label for="e-mail">E-mail</label>
+                        <input name="e-mail" id="e-mail" required>
+                    </div>
+                    <div class="input-block">
+                        <label for="pass">Senha</label>
+                        <input name="pass" id="pass" required>
+                    </div>
                 </fieldset>
             </form>
-        </fmt:bundle>
-	</div>
+            <footer>
+        <button type="submit" form="login-prof">Log-in</button>
+
     <div align="center">
         <a href="/<%= contextPath%>/clientes/cadastro">Ainda não possui um cadastro? Cadastre-se já!</a>
-        
+        </footer>
+</main>
+</div>
     </div>
 </body>
 </html>
