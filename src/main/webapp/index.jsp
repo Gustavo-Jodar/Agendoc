@@ -21,7 +21,7 @@
                 <!-- Apenas enquanto nao faco o css -->
                 <br>
                 <!-- Apenas enquanto nao faco o css -->
-                <a class ="profissionais" href="profissional/cadastro.jsp">
+                <a class ="profissionais" href="profissionais/cadastro">
                     Disponibilize Suas Consultas
                 </a>
             </div>

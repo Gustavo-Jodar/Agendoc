@@ -50,11 +50,13 @@ public class ProfissionalController extends HttpServlet {
             switch (action) {
                 case "/saveCadastro":
                     saveCadastro(request, response);
+                    break;
                 case "/loginPage":
                     apresentaFormLogin(request, response);
+                    break;
                 case "/cadastro":
                     apresentaFormCadastro(request, response);
-
+                    break;
                 default:
                     lista(request, response);
                     break;
@@ -81,7 +83,7 @@ public class ProfissionalController extends HttpServlet {
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/profissional.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/cadastro.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -93,7 +95,7 @@ public class ProfissionalController extends HttpServlet {
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
         String bio = request.getParameter("bio");
-        String especialidade = request.getParameter("especialidade");
+        String especialidade = request.getParameter("area");
 
         String startDateStrNascimento = request.getParameter("nascimento");
         SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");

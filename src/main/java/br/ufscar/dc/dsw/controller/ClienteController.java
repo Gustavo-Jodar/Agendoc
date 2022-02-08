@@ -50,11 +50,13 @@ public class ClienteController extends HttpServlet {
             switch (action) {
                 case "/cadastrar":
                     cadastrar(request, response);
+                    break;
                 case "/loginPage":
                     apresentaFormLogin(request, response);
+                    break;
                 case "/cadastro":
                     apresentaFormCadastro(request, response);
-
+                    break;
                 default:
                     lista(request, response);
                     break;

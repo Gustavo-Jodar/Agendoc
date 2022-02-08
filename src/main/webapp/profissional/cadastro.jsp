@@ -123,7 +123,7 @@
                     </form>
                 </fmt:bundle>
                 <footer>
-                    <button type="submit" form="register-prof" value="Cadastrar">Salvar cadastro</button>
+                    <button type="submit" form="register-prof" value="saveCadastro">Salvar cadastro</button>
                 </footer>
             </main>
         </div>
