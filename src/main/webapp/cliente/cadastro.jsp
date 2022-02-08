@@ -54,7 +54,7 @@
                         </div>
                         <div class="input-block">
                             <label for="e-mail">E-mail</label>
-                            <input name="e-mail" id="e-mail" required>
+                            <input name="email" id="e-mail" required>
                         </div>
                         <div class="input-block">
                             <label for="pass">Senha</label>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="input-block">
                             <label>Sexo: </label>
-                            <input name="Sexo" type="text"/><br/>
+                            <input name="sexo" type="text"/><br/>
                         </div>
                     </fieldset>
                 </form>

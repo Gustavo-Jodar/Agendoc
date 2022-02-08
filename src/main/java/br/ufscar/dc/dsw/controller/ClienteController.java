@@ -89,13 +89,15 @@ public class ClienteController extends HttpServlet {
             throws ServletException, IOException, ParseException {
         request.setCharacterEncoding("UTF-8");
         String cpf = request.getParameter("cpf");
-        String nome = request.getParameter("nome");
+        String nome = request.getParameter("name");
         String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
+        String senha = request.getParameter("pass");
         String telefone = request.getParameter("telefone");
         String sexo = request.getParameter("sexo");
 
-        String startDateStrNascimento = request.getParameter("nascimento");
+        String startDateStrNascimento = request.getParameter("birth-date");
+        startDateStrNascimento = startDateStrNascimento.replace('/', '-');
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
 
         try {
