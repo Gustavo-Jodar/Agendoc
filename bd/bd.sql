@@ -22,4 +22,16 @@ INSERT INTO Cliente(cpf, nome, email, senha, telefone, sexo, nascimento) VALUES 
 																				  'Masculino',
 																				  '29-01-2001'
 																				 );
+
+--cria tabela profissionais
+
+CREATE TABLE Profissional(cpf CHAR(16) NOT NULL UNIQUE, 
+					 email VARCHAR(50) NOT NULL UNIQUE,
+					 senha VARCHAR(50) NOT NULL,
+					 nome VARCHAR(100) NOT NULL,
+					 especialidade VARCHAR(100)NOT NULL UNIQUE,
+					 bio VARCHAR(500) NOT NULL,
+					 nascimento DATE NOT NULL,
+					CONSTRAINT PK_PROFISSIONAL PRIMARY KEY(cpf)
+					)																	
                                                                                  

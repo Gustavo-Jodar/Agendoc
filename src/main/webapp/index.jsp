@@ -13,6 +13,7 @@
         <div id= "container">
             <!-- apenas para fins de testes -->
             <a href="clientes/listar">Clientes Cadastrados</a>
+            <a href="profissionais/listar">Profissionais Cadastrados</a>
             <!-- apenas para fins de testes -->
             <div class="buttons-container">
                 
@@ -20,7 +21,7 @@
                 <!-- Apenas enquanto nao faco o css -->
                 <br>
                 <!-- Apenas enquanto nao faco o css -->
-                <a class ="profissionais" href="profissional/profissional-login.jsp">
+                <a class ="profissionais" href="profissional/cadastro.jsp">
                     Disponibilize Suas Consultas
                 </a>
             </div>
