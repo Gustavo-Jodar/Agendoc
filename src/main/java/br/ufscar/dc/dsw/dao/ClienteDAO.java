@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufscar.dc.dsw.domain.Cliente;
+import br.ufscar.dc.dsw.domain.User;
 
 public class ClienteDAO extends GenericDAO {
+    // função para inserir uma entidade do tipo cliente no BD
     public void insert(Cliente cliente) {
         String sql = "INSERT INTO Users(cpf, nome, email, senha, nascimento, papel) VALUES (?, ?, ?, ?, ?, ?)";
         try {
@@ -51,6 +53,7 @@ public class ClienteDAO extends GenericDAO {
         }
     }
 
+    // função para listar todos os clientes do BD
     public List<Cliente> getAll() {
         List<Cliente> listaClientes = new ArrayList<>();
 
@@ -82,5 +85,35 @@ public class ClienteDAO extends GenericDAO {
             throw new RuntimeException(e);
         }
         return listaClientes;
+    }
+
+    // função que retorna cliente a partir do seu objeto do tipo usuário
+    public Cliente getbyLogin(User user) {
+        Cliente cliente = null;
+
+        String sql = "SELECT * from Clientes WHERE cpf = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, user.getCpf());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String telefone = resultSet.getString("telefone");
+                String sexo = resultSet.getString("sexo");
+
+                cliente = new Cliente(user.getCpf(),
+                        user.getnome(), user.getEmail(), user.getSenha(),
+                        telefone, sexo, user.getNascimento());
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return cliente;
     }
 }

@@ -4,13 +4,10 @@ import br.ufscar.dc.dsw.dao.ClienteDAO;
 import br.ufscar.dc.dsw.domain.Cliente;
 
 import java.io.IOException;
-import java.net.URLClassLoader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Date;
-import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,15 +45,24 @@ public class ClienteController extends HttpServlet {
 
         try {
             switch (action) {
+                // rota para salvar um cliente no BD
                 case "/saveCliente":
                     saveCliente(request, response);
                     break;
+                // rota para apresentar login de cliente (passível remoção)
                 case "/showLogin":
                     apresentaFormLogin(request, response);
                     break;
+                // rota para mostra forms de cadastro de cliente
+
                 case "/showCadastroCliente":
                     apresentaFormCadastro(request, response);
                     break;
+                // rota para mostra página de cliente
+                case "/showPaginaCliente":
+                    apresentaPaginaCliente(request, response);
+                    break;
+                // passível de remoção
                 default:
                     lista(request, response);
                     break;
@@ -77,6 +83,12 @@ public class ClienteController extends HttpServlet {
     private void apresentaFormLogin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/login.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void apresentaPaginaCliente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/index.jsp");
         dispatcher.forward(request, response);
     }
 

@@ -10,24 +10,19 @@
         <%
 			String contextPath = request.getContextPath().replace("/", "");
 		%>
-        <div id= "container">
-            <!-- apenas para fins de testes -->
+        <div align="center" id="container">
             <a href="clientes/listar">Clientes Cadastrados</a>
+            <br/>
             <a href="profissionais/listar">Profissionais Cadastrados</a>
-            <!-- apenas para fins de testes -->
-            <div class="buttons-container">
-                
-                <a href="/<%= contextPath%>/clientes/showLogin">Marcar Consulta</a>
-                <!-- Apenas enquanto nao faco o css -->
-                <br>
-                <!-- Apenas enquanto nao faco o css -->
-                <a class ="profissionais" href="profissionais/showCadastroProfissional">
-                    Disponibilize Suas Consultas
-                </a>
-            </div>
-        
+            <br/>
+            <a href="/<%= contextPath%>/clientes/showLogin">Marcar Consulta</a>
+            <br>
+            <a class ="profissionais" href="profissionais/showCadastroProfissional">Disponibilize Suas Consultas</a>
+            <br/>
+            <br/>
+            <a href="/<%= contextPath%>/users/showLogin">Login</a>
             <p class="total-connections">
-                Total de 200 cadastros de profissionais já realizados
+                Total de 1.000.000 de cadastros de profissionais já realizados!
             </p>
         </div>
     </body>

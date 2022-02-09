@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufscar.dc.dsw.domain.Profissional;
+import br.ufscar.dc.dsw.domain.User;
 
 public class ProfissionalDAO extends GenericDAO {
+    // função para inserir uma entidade do tipo profissional no BD
     public void insert(Profissional profissional) {
         String sql = "INSERT INTO Users(cpf, nome, email, senha, nascimento, papel) VALUES (?, ?, ?, ?, ?, ?)";
         try {
@@ -53,6 +55,7 @@ public class ProfissionalDAO extends GenericDAO {
         }
     }
 
+    // função que retorna todas as entidades do tipo profissional do BD
     public List<Profissional> getAll() {
 
         List<Profissional> listaProfissionais = new ArrayList<>();
@@ -85,5 +88,36 @@ public class ProfissionalDAO extends GenericDAO {
             throw new RuntimeException(e);
         }
         return listaProfissionais;
+    }
+
+    // função que retorna um profissional a partir do seu objeto do tipo user
+    public Profissional getbyLogin(User user) {
+        Profissional profissional = null;
+
+        String sql = "SELECT * from Profissionais WHERE cpf = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, user.getCpf());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String bio = resultSet.getString("bio");
+                String area = resultSet.getString("area");
+                String especialidade = resultSet.getString("especialidade");
+
+                profissional = new Profissional(user.getCpf(),
+                        user.getnome(), user.getEmail(), user.getSenha(),
+                        bio, area, especialidade, user.getNascimento());
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return profissional;
     }
 }

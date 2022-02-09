@@ -4,13 +4,10 @@ import br.ufscar.dc.dsw.dao.ProfissionalDAO;
 import br.ufscar.dc.dsw.domain.Profissional;
 
 import java.io.IOException;
-import java.net.URLClassLoader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Date;
-import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,15 +45,23 @@ public class ProfissionalController extends HttpServlet {
 
         try {
             switch (action) {
+                // rota para salvar Profissional no BD
                 case "/saveProfissional":
                     saveProfissional(request, response);
                     break;
+                // rota para acesso de página do profissional
+                case "/showPaginaProfissional":
+                    apresentaPaginaProfissional(request, response);
+                    break;
+                // rota para mostra login profissional (passível de remoção)
                 case "/showLogin":
                     apresentaFormLogin(request, response);
                     break;
+                // rota para mostrar forms de cadastro de profissional
                 case "/showCadastroProfissional":
                     apresentaFormCadastro(request, response);
                     break;
+                // passível de remoção
                 default:
                     lista(request, response);
                     break;
@@ -77,6 +82,12 @@ public class ProfissionalController extends HttpServlet {
     private void apresentaFormLogin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/login.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void apresentaPaginaProfissional(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/index.jsp");
         dispatcher.forward(request, response);
     }
 
