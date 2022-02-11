@@ -90,7 +90,6 @@ public class UserController extends HttpServlet {
 
     protected void login_logout(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("ue");
         Erro erros = new Erro();
         if (request.getParameter("loginData") != null) {
             String email = request.getParameter("email");

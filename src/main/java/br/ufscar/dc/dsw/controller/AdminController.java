@@ -10,6 +10,8 @@ import br.ufscar.dc.dsw.domain.Profissional;
 
 import br.ufscar.dc.dsw.util.Erro;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Date;
 
 @WebServlet(urlPatterns = "/admins/*")
 
@@ -78,11 +81,29 @@ public class AdminController extends HttpServlet {
                 case "/listaProfissionais":
                     listaProfissionais(request, response);
                     break;
+                case "/apresentaEdicaoCliente":
+                    apresentaEdicaoCliente(request, response);
+                    break;
+                case "/apresentaEdicaoProfissional":
+                    apresentaEdicaoProfissioanl(request, response);
+                    break;
+                case "/editaCliente":
+                    editaCliente(request, response);
+                    break;
+                case "/editaProfissional":
+                    editaProfissional(request, response);
+                    break;
+                case "/removerProfissional":
+                    removerProfissional(request, response);
+                    break;
+                case "/removerCliente":
+                    removerCliente(request, response);
+                    break;
                 default:
                     apresentaPaginaAdmin(request, response);
                     break;
             }
-        } catch (RuntimeException | IOException | ServletException e) {
+        } catch (RuntimeException | IOException | ServletException | ParseException e) {
             throw new ServletException(e);
         }
     }
@@ -94,6 +115,7 @@ public class AdminController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    // função para listagem de clientes
     private void listaClientes(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Cliente> listaClientes = daoCliente.getAll();
@@ -102,10 +124,137 @@ public class AdminController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    // função para listar profissionais
     private void listaProfissionais(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Profissional> listaProfissionais = daoProfissional.getAll();
         request.setAttribute("listaProfissionais", listaProfissionais);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/listaProfissionais.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    // função para acessar página de edição de cliente
+    private void apresentaEdicaoCliente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String emailCliente = request.getParameter("email");
+        User clienteUser = daoUser.getbyLogin(emailCliente);
+        Cliente cliente = daoCliente.getbyLogin(clienteUser);
+
+        System.out.println(cliente.getCpf());
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/editCliente.jsp");
+        request.setAttribute("clienteEdit", cliente);
+
+        dispatcher.forward(request, response);
+    }
+
+    // função para acessar página de edição de profissional
+    private void apresentaEdicaoProfissioanl(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String emailProfissional = request.getParameter("email");
+        User profissionalUser = daoUser.getbyLogin(emailProfissional);
+        Profissional profissional = daoProfissional.getbyLogin(profissionalUser);
+
+        System.out.println(profissional.getCpf());
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/editProfissional.jsp");
+        request.setAttribute("profissionalEdit", profissional);
+
+        dispatcher.forward(request, response);
+    }
+
+    // função para edição de cliente
+    private void editaCliente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException {
+        request.setCharacterEncoding("UTF-8");
+        String cpf = request.getParameter("cpf");
+        String nome = request.getParameter("nome");
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+        String telefone = request.getParameter("telefone");
+        String sexo = request.getParameter("sexo");
+
+        String startDateStrNascimento = request.getParameter("nascimento");
+        startDateStrNascimento = startDateStrNascimento.replace('/', '-');
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+
+        try {
+            Date nascimento = sdf.parse(startDateStrNascimento);
+
+            Cliente cliente = new Cliente(cpf, nome, email, senha, telefone, sexo, nascimento);
+            daoCliente.update(cliente);
+
+            List<Cliente> listaClientes = daoCliente.getAll();
+            request.setAttribute("listaClientes", listaClientes);
+
+            // NAO É NO LISTA QUE É PRA REDIRECIONAAAAAAAAAAAAAAAAAAAR
+            response.sendRedirect("listaClientes");
+
+        } catch (RuntimeException | ParseException | IOException e) {
+            throw new ServletException(e);
+        }
+
+    }
+
+    // função para edição de rpofissional
+    private void editaProfissional(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException {
+        request.setCharacterEncoding("UTF-8");
+        String cpf = request.getParameter("cpf");
+        String nome = request.getParameter("nome");
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+        String bio = request.getParameter("bio");
+        String especialidade = request.getParameter("especialidade");
+        String area = request.getParameter("area");
+
+        String startDateStrNascimento = request.getParameter("nascimento");
+        startDateStrNascimento = startDateStrNascimento.replace('/', '-');
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+
+        try {
+            Date nascimento = sdf.parse(startDateStrNascimento);
+
+            Profissional profissional = new Profissional(cpf, nome, email, senha, bio, area, especialidade, nascimento);
+            daoProfissional.update(profissional);
+
+            List<Profissional> listaProfissionais = daoProfissional.getAll();
+            request.setAttribute("listaProfissionaiss", listaProfissionais);
+
+            // NAO É NO LISTA QUE É PRA REDIRECIONAAAAAAAAAAAAAAAAAAAR
+            response.sendRedirect("listaProfissionais");
+
+        } catch (RuntimeException | ParseException | IOException e) {
+            throw new ServletException(e);
+        }
+    }
+
+    // função para remoção de cliente
+    private void removerCliente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String cpfCliente = request.getParameter("cpf");
+
+        daoUser.remobeByCpf(cpfCliente);
+        List<Cliente> listaClientes = daoCliente.getAll();
+
+        request.setAttribute("listaClientes", listaClientes);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/listaClientes.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    // função para remoção de profissioanl
+    private void removerProfissional(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String cpfProfissional = request.getParameter("cpf");
+
+        daoUser.remobeByCpf(cpfProfissional);
+        List<Profissional> listaProfissionais = daoProfissional.getAll();
+
+        request.setAttribute("listaProfissionais", listaProfissionais);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/listaProfissionais.jsp");
         dispatcher.forward(request, response);
     }

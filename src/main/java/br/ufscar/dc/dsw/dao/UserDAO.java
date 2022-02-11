@@ -40,4 +40,20 @@ public class UserDAO extends GenericDAO {
         }
         return usuario;
     }
+
+    public void remobeByCpf(String cpf) {
+        String sql = "DELETE FROM Users where cpf = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, cpf);
+            statement.executeUpdate();
+
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
 }

@@ -120,4 +120,45 @@ public class ProfissionalDAO extends GenericDAO {
         }
         return profissional;
     }
+
+    // função para atualizar uma entidade do tipo profissional no BD
+    public void update(Profissional profissional) {
+        String sql = "UPDATE Users SET nome = ?, email = ?, senha = ?, nascimento = ? WHERE cpf = ? ";
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, profissional.getnome());
+            statement.setString(2, profissional.getEmail());
+            statement.setString(3, profissional.getSenha());
+            java.sql.Date sqlDNascimento = new java.sql.Date(profissional.getNascimento().getTime());
+            statement.setDate(4, sqlDNascimento);
+            statement.setString(5, profissional.getCpf());
+            statement.executeUpdate();
+
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        sql = "UPDATE Profissionais SET area = ? , especialidade = ?,bio = ? WHERE cpf = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, profissional.getArea());
+            statement.setString(2, profissional.getEspecialidade());
+            statement.setString(3, profissional.getBio());
+            statement.setString(4, profissional.getCpf());
+
+            statement.executeUpdate();
+
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

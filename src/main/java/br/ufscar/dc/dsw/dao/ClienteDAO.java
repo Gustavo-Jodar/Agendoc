@@ -53,6 +53,46 @@ public class ClienteDAO extends GenericDAO {
         }
     }
 
+    // função para atualizar uma entidade do tipo cliente no BD
+    public void update(Cliente cliente) {
+        String sql = "UPDATE Users SET nome = ?, email = ?, senha = ?, nascimento = ? WHERE cpf = ? ";
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, cliente.getnome());
+            statement.setString(2, cliente.getEmail());
+            statement.setString(3, cliente.getSenha());
+            java.sql.Date sqlDNascimento = new java.sql.Date(cliente.getNascimento().getTime());
+            statement.setDate(4, sqlDNascimento);
+            statement.setString(5, cliente.getCpf());
+            statement.executeUpdate();
+
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        sql = "UPDATE Clientes SET telefone = ?, sexo = ? WHERE cpf = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, cliente.getTelefone());
+            statement.setString(2, cliente.getSexo());
+            statement.setString(3, cliente.getCpf());
+
+            statement.executeUpdate();
+
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     // função para listar todos os clientes do BD
     public List<Cliente> getAll() {
         List<Cliente> listaClientes = new ArrayList<>();

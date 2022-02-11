@@ -13,7 +13,7 @@
 	<div align="center">
 		<h1>Gerenciamento de Profissionais</h1>
 		<h2>
-			<a href="/<%=contextPath%>//admins/showPaginaAdmin">Voltar para Página do Administrador</a> &nbsp;&nbsp;&nbsp; 
+			<a href="/<%=contextPath%>//admins/showPaginaAdmin">Voltar</a> &nbsp;&nbsp;&nbsp; 
 		</h2>
 	</div>
 	<div align="center">
@@ -23,22 +23,27 @@
                 <th>CPF</th>
 				<th>Nome</th>
 				<th>Email</th>
-				<th>Senha</th>
 				<th>Area</th>
 				<th>Especialidade</th>
 				<th>Biografia</th>
 				<th>Nascimento</th>
+				<th>Editar</th>
+				<th>Apagar</th>
 			</tr>
 			<c:forEach var="profissional" items="${requestScope.listaProfissionais}">
 				<tr>
 					<td>${profissional.cpf}</td>
 					<td>${profissional.nome}</td>
 					<td>${profissional.email}</td>
-					<td>${profissional.senha}</td>
 					<td>${profissional.area}</td>
 					<td>${profissional.especialidade}</td>
 					<td>${profissional.bio}</td>
 					<td>${profissional.nascimento}</td>
+					<td align="center" ><a href="/<%=contextPath%>/admins/apresentaEdicaoProfissional?email=<c:out value='${profissional.email}'/>">🖍️</a></td>
+					<td align="center" >
+					<a href="/<%=contextPath%>/admins/removerProfissional?cpf=${profissional.cpf}"
+						onclick="return confirm('Tem certeza que deseja excluir este usuário?');"
+					>🗑️</a></td>
 				</tr>
 			</c:forEach>
 		</table>
