@@ -44,7 +44,7 @@
             </form>
             <footer>
         <button type="submit" name="loginData" form="login-prof">Log-in</button>
-        --> <form id="register-prof" method="post" action="login">
+        --> <form id="register-prof" method="post" action="${pageContext.request.contextPath}/users/login">
             <table>
                 <tr>
                     <th>email: </th>

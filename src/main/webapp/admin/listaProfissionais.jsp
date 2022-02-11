@@ -13,7 +13,7 @@
 	<div align="center">
 		<h1>Gerenciamento de Profissionais</h1>
 		<h2>
-			<a href="/<%=contextPath%>">Menu Principal</a> &nbsp;&nbsp;&nbsp; 
+			<a href="/<%=contextPath%>//admins/showPaginaAdmin">Voltar para Página do Administrador</a> &nbsp;&nbsp;&nbsp; 
 		</h2>
 	</div>
 	<div align="center">

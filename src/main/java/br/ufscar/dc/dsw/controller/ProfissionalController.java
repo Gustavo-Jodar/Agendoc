@@ -53,36 +53,18 @@ public class ProfissionalController extends HttpServlet {
                 case "/showPaginaProfissional":
                     apresentaPaginaProfissional(request, response);
                     break;
-                // rota para mostra login profissional (passível de remoção)
-                case "/showLogin":
-                    apresentaFormLogin(request, response);
-                    break;
                 // rota para mostrar forms de cadastro de profissional
                 case "/showCadastroProfissional":
                     apresentaFormCadastro(request, response);
                     break;
                 // passível de remoção
                 default:
-                    lista(request, response);
+                    apresentaPaginaProfissional(request, response);
                     break;
             }
         } catch (RuntimeException | IOException | ServletException | ParseException e) {
             throw new ServletException(e);
         }
-    }
-
-    private void lista(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List<Profissional> listaProfissionais = dao.getAll();
-        request.setAttribute("listaProfissionais", listaProfissionais);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/lista.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    private void apresentaFormLogin(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/login.jsp");
-        dispatcher.forward(request, response);
     }
 
     private void apresentaPaginaProfissional(HttpServletRequest request, HttpServletResponse response)

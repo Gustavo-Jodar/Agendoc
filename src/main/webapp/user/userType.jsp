@@ -16,10 +16,6 @@
             </a>
         </div>
         <div align="center" id="container">
-            <a href="../clientes/listar">Clientes Cadastrados</a>
-            <br/>
-            <a href="../profissionais/listar">Profissionais Cadastrados</a>
-            <br>
             <!-- <br/>
             <a href="/<%= contextPath%>/clientes/showLogin">Marcar Consulta</a>
             <br> -->

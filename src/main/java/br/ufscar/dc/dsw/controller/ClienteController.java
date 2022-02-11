@@ -49,12 +49,7 @@ public class ClienteController extends HttpServlet {
                 case "/saveCliente":
                     saveCliente(request, response);
                     break;
-                // rota para apresentar login de cliente (passível remoção)
-                case "/showLogin":
-                    apresentaFormLogin(request, response);
-                    break;
                 // rota para mostra forms de cadastro de cliente
-
                 case "/showCadastroCliente":
                     apresentaFormCadastro(request, response);
                     break;
@@ -64,26 +59,12 @@ public class ClienteController extends HttpServlet {
                     break;
                 // passível de remoção
                 default:
-                    lista(request, response);
+                    apresentaPaginaCliente(request, response);
                     break;
             }
         } catch (RuntimeException | IOException | ServletException | ParseException e) {
             throw new ServletException(e);
         }
-    }
-
-    private void lista(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List<Cliente> listaClientes = dao.getAll();
-        request.setAttribute("listaClientes", listaClientes);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/lista.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    private void apresentaFormLogin(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/login.jsp");
-        dispatcher.forward(request, response);
     }
 
     private void apresentaPaginaCliente(HttpServletRequest request, HttpServletResponse response)

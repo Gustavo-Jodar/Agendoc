@@ -53,13 +53,15 @@ public class UserController extends HttpServlet {
             switch (action) {
                 // rota para fazer login
                 case "/login":
-                    login(request, response);
+                    login_logout(request, response);
                     break;
-                // rota para mostrar página de login
+                // rota para login_logout mas como nao tem formulário de envio faz o logout
+                case "/logout":
+                    login_logout(request, response);
+                    // rota para mostrar página de login
                 case "/showLogin":
                     apresentaFormLogin(request, response);
                     break;
-
                 // passível de remoção
                 case "/showIndex":
                     retornaIndex(request, response);
@@ -86,8 +88,9 @@ public class UserController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    protected void login(HttpServletRequest request, HttpServletResponse response)
+    protected void login_logout(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("ue");
         Erro erros = new Erro();
         if (request.getParameter("loginData") != null) {
             String email = request.getParameter("email");
@@ -147,7 +150,7 @@ public class UserController extends HttpServlet {
 
         request.setAttribute("mensagens", erros);
 
-        String URL = "/noAuth.jsp";
+        String URL = "/index.jsp";
         RequestDispatcher rd = request.getRequestDispatcher(URL);
         rd.forward(request, response);
     }

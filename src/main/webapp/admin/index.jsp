@@ -9,10 +9,18 @@
     <body>
         <h1>Página do Admin</h1>
         <p>Olá ${sessionScope.usuarioLogado.nome}</p>
-        <ul>
-            <li>
-                <!-- <a href="${pageContext.request.contextPath}/logout.jsp">Sair</a> -->
-            </li>
-        </ul>
+        <div align="center">
+            <ul>
+                <li>
+                    <a href="${pageContext.request.contextPath}/admins/listaClientes">CRUD Clientes</a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/admins/listaProfissionais">CRUD Profissionais</a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/users/logout">Sair</a>
+                </li>
+            </ul>
+        </div>
     </body>
 </html>
