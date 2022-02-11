@@ -23,7 +23,7 @@
             
             <header class="page-header">
                 <div class="top-bar-container">
-                    <a href="../index.jsp">
+                    <a href="../user/userType.jsp">
                     <img src="../images/back.svg" alt="Voltar">
                     </a>
                 </div>

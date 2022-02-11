@@ -12,7 +12,10 @@
         <link rel="stylesheet" href="../styles/forms.css">
 
         <script src="../scripts/addField.js" defer></script>
-<body  id= "page-prof-register">   
+<body  id= "page-prof-register">
+    <%
+        String contextPath = request.getContextPath().replace("/", "");
+    %>     
     <div id= "container">
             <header class="page-header">
                 <div class="top-bar-container">
@@ -26,10 +29,7 @@
                     <p>Basta informar seu e-mail e senha cadastrados!</p>
                 </div>
             </header>
-<main>      
-    <%
-		String contextPath = request.getContextPath().replace("/", "");
-	%>   
+<main>       
 	      <!--  <form action="showIndex" method="post" id="register-prof" >
                 <fieldset>
                     <div class="input-block">
@@ -44,7 +44,7 @@
             </form>
             <footer>
         <button type="submit" name="loginData" form="login-prof">Log-in</button>
-        --> <form method="post" action="login">
+        --> <form id="register-prof" method="post" action="login">
             <table>
                 <tr>
                     <th>email: </th>
@@ -65,6 +65,7 @@
         
     
     <div align="center">
+        <a href="../user/userType.jsp">Ainda não possui um cadastro? Cadastre-se já!</a>
         </footer>
 </main>
 </div>
