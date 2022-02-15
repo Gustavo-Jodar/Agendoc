@@ -149,8 +149,6 @@ public class UserController extends HttpServlet {
 
         request.setAttribute("mensagens", erros);
 
-        String URL = "/index.jsp";
-        RequestDispatcher rd = request.getRequestDispatcher(URL);
-        rd.forward(request, response);
+        request.getAttribute("javax.servlet.forward.request_uri");
     }
 }

@@ -55,12 +55,11 @@
 
 
 .buttons-container .button{
-    background: var(--color-primary-lighter);
+    background: var(--color-primary-light);
 }
 
 .buttons-container .button:hover {
-
-    background: var(--color-primary-light);
+    background: var(--color-primary-lighter);
 }
 
 .total-connections{
