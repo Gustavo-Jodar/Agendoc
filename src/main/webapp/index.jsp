@@ -23,8 +23,8 @@
         <img class= "hero-image" src="images/landing.png" alt="Plataforma de Consultas">
 
     <div class="buttons-container">
-        <a class ="button" href="/<%= contextPath%>/users/showLogin"> 
-        Login
+        <a class ="button" href="seeProf.jsp"> 
+            Comece agora!
         </a>
     </div>
 
