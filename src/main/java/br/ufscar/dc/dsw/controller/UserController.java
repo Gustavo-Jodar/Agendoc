@@ -4,12 +4,15 @@ import br.ufscar.dc.dsw.dao.ClienteDAO;
 import br.ufscar.dc.dsw.dao.ProfissionalDAO;
 import br.ufscar.dc.dsw.dao.UserDAO;
 import br.ufscar.dc.dsw.util.Erro;
+import br.ufscar.dc.dsw.util.Formata;
 
 import br.ufscar.dc.dsw.domain.Cliente;
 import br.ufscar.dc.dsw.domain.Profissional;
 import br.ufscar.dc.dsw.domain.User;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -66,6 +69,9 @@ public class UserController extends HttpServlet {
                 case "/showIndex":
                     retornaIndex(request, response);
                     break;
+                case "/showProfissionais":
+                    apresentaListaFiltradaProfissionais(request, response);
+                    break;
                 // passível de remoção
                 default:
                     retornaIndex(request, response);
@@ -82,8 +88,31 @@ public class UserController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    private void apresentaListaFiltradaProfissionais(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Formata f = new Formata();
+        String area = request.getParameter("area");
+        String especialidade = request.getParameter("especialidade");
+
+        if ((area == null && especialidade == null) || (area == "" && especialidade == "")) {
+            List<Profissional> listaProfissionais = daoProfissional.getAll();
+            request.setAttribute("listaProfissionais", listaProfissionais);
+        } else {
+            especialidade = f.formataString(especialidade);
+            List<Profissional> listaProfissionais = daoProfissional.getWithFilter(area, especialidade);
+            request.setAttribute("listaProfissionais", listaProfissionais);
+        }
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/seeProf.jsp");
+        dispatcher.forward(request, response);
+    }
+
     private void retornaIndex(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        List<Profissional> listaProfissionais = daoProfissional.getAll();
+        request.setAttribute("numProfissionais", listaProfissionais.size());
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
         dispatcher.forward(request, response);
     }

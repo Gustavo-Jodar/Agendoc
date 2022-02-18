@@ -3,6 +3,8 @@ package br.ufscar.dc.dsw.controller;
 import br.ufscar.dc.dsw.dao.ProfissionalDAO;
 import br.ufscar.dc.dsw.domain.Profissional;
 
+import br.ufscar.dc.dsw.util.Formata;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -89,7 +91,23 @@ public class ProfissionalController extends HttpServlet {
         String senha = request.getParameter("senha");
         String bio = request.getParameter("bio");
         String especialidade = request.getParameter("especialidade");
+
+        Formata f = new Formata();
+        especialidade = f.formataString(especialidade);
+
         String area = request.getParameter("area");
+        if (area.substring(0, 1).equals("1"))
+            area = "medicina";
+        if (area.substring(0, 1).equals("2"))
+            area = "advocacia";
+        if (area.substring(0, 1).equals("3"))
+            area = "psicologia";
+        if (area.substring(0, 1).equals("4"))
+            area = "educacao";
+        if (area.substring(0, 1).equals("5"))
+            area = "nutricao";
+        if (area.substring(0, 1).equals("6"))
+            area = "terapia";
 
         String startDateStrNascimento = request.getParameter("nascimento");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
@@ -100,7 +118,10 @@ public class ProfissionalController extends HttpServlet {
             Profissional profissional = new Profissional(cpf, nome, email, senha, bio, area, especialidade, nascimento);
             dao.insert(profissional);
 
-            response.sendRedirect("lista");
+            // response.sendRedirect("/users/showLogin");
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/users/showLogin");
+            dispatcher.forward(request, response);
 
         } catch (RuntimeException | ParseException | IOException e) {
             throw new ServletException(e);

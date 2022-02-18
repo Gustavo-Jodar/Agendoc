@@ -90,6 +90,57 @@ public class ProfissionalDAO extends GenericDAO {
         return listaProfissionais;
     }
 
+    // função que retorna todas as entidades do tipo profissional do BD
+    public List<Profissional> getWithFilter(String areaF, String especialidadeF) {
+
+        List<Profissional> listaProfissionais = new ArrayList<>();
+        String sql;
+        if (especialidadeF == null && areaF != null || (especialidadeF == "" && areaF != null)) {
+            sql = "SELECT Users.cpf, nome, email, senha, nascimento, area, especialidade, bio FROM Users, Profissionais WHERE (Users.cpf=Profissionais.cpf AND area=?);";
+        } else if (areaF == null && especialidadeF != null || areaF == "" && especialidadeF != null) {
+            sql = "SELECT Users.cpf, nome, email, senha, nascimento, area, especialidade, bio FROM Users, Profissionais WHERE (Users.cpf=Profissionais.cpf AND especialidade=?);";
+        } else {
+            sql = "SELECT Users.cpf, nome, email, senha, nascimento, area, especialidade, bio FROM Users, Profissionais WHERE (Users.cpf=Profissionais.cpf AND area=? AND especialidade=?);";
+        }
+
+        try {
+
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            if (especialidadeF == null && areaF != null || especialidadeF == "" && areaF != null) {
+                statement.setString(1, areaF);
+            } else if (areaF == null && especialidadeF != null || areaF == "" && especialidadeF != null) {
+                statement.setString(1, especialidadeF);
+            } else {
+                statement.setString(1, areaF);
+                statement.setString(2, especialidadeF);
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String cpf = resultSet.getString("cpf");
+                String nome = resultSet.getString("nome");
+                String email = resultSet.getString("email");
+                String senha = resultSet.getString("senha");
+                String bio = resultSet.getString("bio");
+                String area = resultSet.getString("area");
+                String especialidade = resultSet.getString("especialidade");
+                Date nascimento = resultSet.getDate("nascimento");
+
+                Profissional profissional = new Profissional(cpf, nome, email, senha, bio, area, especialidade,
+                        nascimento);
+                listaProfissionais.add(profissional);
+            }
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listaProfissionais;
+    }
+
     // função que retorna um profissional a partir do seu objeto do tipo user
     public Profissional getbyLogin(User user) {
         Profissional profissional = null;
