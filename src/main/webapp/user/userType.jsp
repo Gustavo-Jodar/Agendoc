@@ -19,9 +19,9 @@
             <!-- <br/>
             <a href="/<%= contextPath%>/clientes/showLogin">Marcar Consulta</a>
             <br> -->
-            <a class ="profissionais" href="../clientes/showCadastroCliente">Sou um cliente</a>
+            <a class ="profissionais" href="../users/showCadastroCliente">Sou um cliente</a>
             <br>
-            <a class ="profissionais" href="../profissionais/showCadastroProfissional">Sou um profissional</a>
+            <a class ="profissionais" href="../users/showCadastroProfissional">Sou um profissional</a>
             <br/>
             <br/>
         </div>

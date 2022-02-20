@@ -87,6 +87,12 @@ public class AdminController extends HttpServlet {
                 case "/apresentaEdicaoProfissional":
                     apresentaEdicaoProfissioanl(request, response);
                     break;
+                case "/apresentaAdicionarProfissional":
+                    apresentaAdicionarProfissional(request, response);
+                    break;
+                case "/apresentaAdicionarCliente":
+                    apresentaAdicionarCliente(request, response);
+                    break;
                 case "/editaCliente":
                     editaCliente(request, response);
                     break;
@@ -160,6 +166,22 @@ public class AdminController extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/editProfissional.jsp");
         request.setAttribute("profissionalEdit", profissional);
 
+        dispatcher.forward(request, response);
+    }
+
+    // função para acessar página de edição de profissional
+    private void apresentaAdicionarProfissional(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/addProfissional.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    // função para acessar página de edição de profissional
+    private void apresentaAdicionarCliente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/addCliente.jsp");
         dispatcher.forward(request, response);
     }
 

@@ -47,6 +47,8 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<br/>
+		<a href="/<%=contextPath%>/admins/apresentaAdicionarProfissional" >Adicionar Profissional</a>
 	</div>
 </body>
 </html>

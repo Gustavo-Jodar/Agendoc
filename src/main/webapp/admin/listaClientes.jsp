@@ -45,6 +45,8 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<br/>
+		<a href="/<%=contextPath%>/admins/apresentaAdicionarCliente" >Adicionar Cliente</a>
 	</div>
 </body>
 </html>
