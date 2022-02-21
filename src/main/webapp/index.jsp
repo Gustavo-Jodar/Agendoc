@@ -30,7 +30,7 @@
     </div>
 
     <p class="total-connections">
-        Total de ${requestScope.numProfissionais} de cadastros de profissionais já realizados!
+        Total de ${requestScope.numProfissionais} cadastros de profissionais já realizados!
     </p>
 
     </div>

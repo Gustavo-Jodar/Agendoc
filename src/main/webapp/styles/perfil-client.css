@@ -1,0 +1,54 @@
+.buttons-container{
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 8rem;
+}
+
+.buttons-container .button{
+    width: 15rem;
+    height: 5rem;
+
+    border-radius: 0.8rem;
+    margin-right: 1.6rem;
+    margin-top: 5rem;
+    margin-bottom: 0.5rem;
+    border-color: none;
+    border: none;
+   
+    font: 1.5rem Comic;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+
+    transition: background 0.2s;
+
+    color: var(--color-button-text);
+}
+
+
+.buttons-container .button{
+    background: var(--color-primary-light);
+}
+
+.buttons-container .button:hover {
+    background: var(--color-primary-lighter);
+}
+.page-footer{
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.title{
+    font-size: 2rem;
+}
+
+.prof-item footer{
+    margin-top: 1.2rem !important;
+    height: 8rem;
+}
