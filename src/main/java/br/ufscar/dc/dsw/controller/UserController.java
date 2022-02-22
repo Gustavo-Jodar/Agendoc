@@ -174,22 +174,24 @@ public class UserController extends HttpServlet {
             if (usuarioLogado.getPapel().replaceAll("\\P{L}+", "").equals("ADMIN")) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/showPaginaAdmin");
                 dispatcher.forward(request, response);
+                return;
             }
             if (usuarioLogado.getPapel().replaceAll("\\P{L}+", "").equals("CLIENTE")) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/showPaginaCliente");
                 dispatcher.forward(request, response);
+                return;
             }
             if (usuarioLogado.getPapel().replaceAll("\\P{L}+", "").equals("PROFISSIONAL")) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/profissionais/showPaginaProfissional");
                 dispatcher.forward(request, response);
+                return;
             }
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/users/showProfissionais");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
+            return;
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-        dispatcher.forward(request, response);
     }
 
     protected void login_logout(HttpServletRequest request, HttpServletResponse response)
