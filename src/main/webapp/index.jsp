@@ -24,7 +24,7 @@
         <img class= "hero-image" src="/<%= contextPath%>/images/landing.png" alt="Plataforma de Consultas">
 
     <div class="buttons-container">
-        <a class ="button" href="/<%= contextPath%>/users/showProfissionais"> 
+        <a class ="button" href="/<%= contextPath%>/users/verificaUsuarioLogado"> 
             Comece agora!
         </a>
     </div>

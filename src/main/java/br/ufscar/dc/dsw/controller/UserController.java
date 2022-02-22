@@ -76,6 +76,12 @@ public class UserController extends HttpServlet {
                 case "/showProfissionais":
                     apresentaListaFiltradaProfissionais(request, response);
                     break;
+                // função que verifica se já existe um usuário logado, se tiver manda para sua
+                // página,
+                // caso nao, manda para listagem de profissionais
+                case "/verificaUsuarioLogado":
+                    verificaUsuarioLogado(request, response);
+                    break;
                 // rota para salvar Profissional no BD
                 case "/saveProfissional":
                     saveProfissional(request, response);
@@ -92,7 +98,9 @@ public class UserController extends HttpServlet {
                 case "/showCadastroCliente":
                     apresentaFormCadastroCliente(request, response);
                     break;
-                // passível de remoção
+                case "/retornaIndex":
+                    retornaIndex(request, response);
+                    break;
                 default:
                     retornaIndex(request, response);
                     break;
@@ -108,8 +116,34 @@ public class UserController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    private void verificaUsuarioLogado(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // checa se já tem um usuário logado, se tiver redireciona para a página dele
+        User usuarioLogado = (User) request.getSession().getAttribute("usuarioLogado");
+
+        if (usuarioLogado != null) {
+            if (usuarioLogado.getPapel().replaceAll("\\P{L}+", "").equals("ADMIN")) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/showPaginaAdmin");
+                dispatcher.forward(request, response);
+            }
+            if (usuarioLogado.getPapel().replaceAll("\\P{L}+", "").equals("CLIENTE")) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/showPaginaCliente");
+                dispatcher.forward(request, response);
+            }
+            if (usuarioLogado.getPapel().replaceAll("\\P{L}+", "").equals("PROFISSIONAL")) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/profissionais/showPaginaProfissional");
+                dispatcher.forward(request, response);
+            }
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/users/showProfissionais");
+            dispatcher.forward(request, response);
+        }
+
+    }
+
     private void apresentaListaFiltradaProfissionais(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         Formata f = new Formata();
         String area = request.getParameter("area");
         String especialidade = request.getParameter("especialidade");
@@ -133,6 +167,26 @@ public class UserController extends HttpServlet {
 
         List<Profissional> listaProfissionais = daoProfissional.getAll();
         request.setAttribute("numProfissionais", listaProfissionais.size());
+
+        User usuarioLogado = (User) request.getSession().getAttribute("usuarioLogado");
+
+        if (usuarioLogado != null) {
+            if (usuarioLogado.getPapel().replaceAll("\\P{L}+", "").equals("ADMIN")) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/showPaginaAdmin");
+                dispatcher.forward(request, response);
+            }
+            if (usuarioLogado.getPapel().replaceAll("\\P{L}+", "").equals("CLIENTE")) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/showPaginaCliente");
+                dispatcher.forward(request, response);
+            }
+            if (usuarioLogado.getPapel().replaceAll("\\P{L}+", "").equals("PROFISSIONAL")) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/profissionais/showPaginaProfissional");
+                dispatcher.forward(request, response);
+            }
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/users/showProfissionais");
+            dispatcher.forward(request, response);
+        }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
         dispatcher.forward(request, response);
