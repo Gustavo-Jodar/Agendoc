@@ -30,7 +30,7 @@ public class Formata {
         string = string.replaceAll("í", "i");
         string = string.replaceAll("ê", "e");
 
-        string = string.toLowerCase();
+        string = string.toUpperCase();
 
         return string;
     }

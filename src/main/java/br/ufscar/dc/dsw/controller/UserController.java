@@ -119,6 +119,7 @@ public class UserController extends HttpServlet {
             request.setAttribute("listaProfissionais", listaProfissionais);
         } else {
             especialidade = f.formataString(especialidade);
+            area = f.formataString(area);
             List<Profissional> listaProfissionais = daoProfissional.getWithFilter(area, especialidade);
             request.setAttribute("listaProfissionais", listaProfissionais);
         }
@@ -216,17 +217,19 @@ public class UserController extends HttpServlet {
 
         String area = request.getParameter("area");
         if (area.substring(0, 1).equals("1"))
-            area = "medicina";
+            area = "MEDICINA";
         if (area.substring(0, 1).equals("2"))
-            area = "advocacia";
+            area = "ADVOCACIA";
         if (area.substring(0, 1).equals("3"))
-            area = "psicologia";
+            area = "PSICOLOGIA";
         if (area.substring(0, 1).equals("4"))
-            area = "educacao";
+            area = "EDUCACAO";
         if (area.substring(0, 1).equals("5"))
-            area = "nutricao";
+            area = "NUTRICAO";
         if (area.substring(0, 1).equals("6"))
-            area = "terapia";
+            area = "TERAPIA";
+
+        area = f.formataString(area);
 
         String startDateStrNascimento = request.getParameter("nascimento");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");

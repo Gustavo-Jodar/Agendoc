@@ -9,6 +9,7 @@ import br.ufscar.dc.dsw.domain.Cliente;
 import br.ufscar.dc.dsw.domain.Profissional;
 
 import br.ufscar.dc.dsw.util.Erro;
+import br.ufscar.dc.dsw.util.Formata;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -223,13 +224,15 @@ public class AdminController extends HttpServlet {
     private void editaProfissional(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         request.setCharacterEncoding("UTF-8");
+        Formata f = new Formata();
+
         String cpf = request.getParameter("cpf");
         String nome = request.getParameter("nome");
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
         String bio = request.getParameter("bio");
-        String especialidade = request.getParameter("especialidade");
-        String area = request.getParameter("area");
+        String especialidade = f.formataString(request.getParameter("especialidade"));
+        String area = f.formataString(request.getParameter("area"));
 
         String startDateStrNascimento = request.getParameter("nascimento");
         startDateStrNascimento = startDateStrNascimento.replace('/', '-');

@@ -56,4 +56,4 @@ INSERT INTO Users(cpf, nome, email, senha, nascimento, papel) VALUES ('511.996.1
 										  '29-01-2001',
 										  'PROFISSIONAL'
 										 );
-INSERT INTO Profissionais(cpf, area, especialidade, bio) VALUES ('511.996.138-01','medicina', 'cardiologista', 'Sou um bom doutor.');
+INSERT INTO Profissionais(cpf, area, especialidade, bio) VALUES ('511.996.138-01','MEDICINA', 'CARDIOLOGIA', 'Sou um bom doutor.');
