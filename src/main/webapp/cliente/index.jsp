@@ -23,11 +23,6 @@
    
     <div id= "container">
         <header class="page-header">
-            <div class="top-bar-container">
-                <a href="/<%= contextPath%>/users/retornaIndex">
-                <img src="/<%= contextPath%>/images/back.svg" alt="Voltar">
-                </a>
-            </div>
 
             <div class="header-content">
                 <strong>Bem vindo (a) ${sessionScope.usuarioLogado.nome}</strong>

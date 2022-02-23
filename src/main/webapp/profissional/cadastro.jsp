@@ -11,7 +11,6 @@
         <link rel="stylesheet" href="../styles/page-profissional-login.css"> 
         <link rel="stylesheet" href="../styles/forms.css">
 
-        <script src="../scripts/addField.js" defer></script>
 
     </head>
     <body id= "page-prof-register" >
@@ -87,39 +86,6 @@
                             </div>
                         </fieldset>
 
-                        <fieldset id="schedule-items">
-                            <legend>Horários disponíveis para atendimento
-                                <button type="button" id="add-time">+ Novo Horario</button>
-                            </legend>
-                            <div class="schedule-item">
-
-                                <div class="select-block">
-                                    <label for="weekday">Dia da semana</label>
-                                    <select name="weekday[]">
-                                        <option value="">Selecione uma opção</option>
-                                        <option value="0">Domingo</option>
-                                        <option value="1">Segunda-feira</option>
-                                        <option value="2">Terça-feira</option>
-                                        <option value="3">Quarta-feira</option>
-                                        <option value="4">Quinta-feira</option>
-                                        <option value="5">Sexta-feira</option>
-                                        <option value="6">Sábado</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="input-block">
-                                    <label for="time_from">Das</label>
-                                    <input type="time" name="time_from[]">
-                                </div>
-
-                                <div class="input-block">
-                                    <label for="time_to">até</label>
-                                    <input type="time" name="time_to[]">
-                                </div>
-
-                            </div>
-
-                        </fieldset>
                     </form>
                 </fmt:bundle>
                 <footer>
