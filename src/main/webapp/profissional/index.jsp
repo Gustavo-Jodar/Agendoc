@@ -39,17 +39,18 @@
                         <strong>Consultas em aberto</strong> 
                     </header>
                     <!-- Aqui ficaria o looping pra mostrar todas consultas, da data mais proxima da atual até a mais antiga -->
+                        <c:forEach var="consulta" items="${requestScope.consultas}">
                         <article class="prof-item">
                             <header>
                                 <div>
-                                    <strong>Carlos Alberto</strong>
+                                    <strong>${consulta.nome_cliente}</strong>
                                     <!-- <span>Consulta particular</span> -->
                                 </div>
                             </header>
                         
-                            <p>Consulta agendada para: 27/03/2022</p>
-                            <p>Horário: 14:00 de Brasilia</p>
-                            <p>Modalidade: Presencial</p>
+                            <p>Consulta agendada para: ${consulta.data_consulta}</p>
+                            <p>Horário: ${consulta.horario}:00 de Brasilia</p>
+                            <p>Modalidade: Online</p>
                         
                             <footer>
                                 <p>Consulta<strong>Particular</strong>
@@ -63,6 +64,7 @@
                                 </a> -->
                             </footer>
                         </article>
+                        </c:forEach>
                 </div>
                 <div class="schedule">
                     <header class="title">

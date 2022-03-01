@@ -1,10 +1,16 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.ProfissionalDAO;
+import br.ufscar.dc.dsw.dao.ConsultaDAO;
+import br.ufscar.dc.dsw.dao.ClienteDAO;
 import br.ufscar.dc.dsw.domain.Profissional;
+import br.ufscar.dc.dsw.domain.Cliente;
+import br.ufscar.dc.dsw.domain.Consulta;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,11 +25,15 @@ public class ProfissionalController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private ProfissionalDAO dao;
+    private ConsultaDAO consultaDAO;
+    private ClienteDAO clienteDAO;
+    private ProfissionalDAO profissionalDAO;
 
     @Override
     public void init() {
-        dao = new ProfissionalDAO();
+        profissionalDAO = new ProfissionalDAO();
+        consultaDAO = new ConsultaDAO();
+        clienteDAO = new ClienteDAO();
     }
 
     @Override
@@ -59,6 +69,12 @@ public class ProfissionalController extends HttpServlet {
 
     private void apresentaPaginaProfissional(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Profissional profissional = (Profissional) request.getSession().getAttribute("usuarioLogado");
+
+        List<Consulta> listaConsultas = consultaDAO.getConsultasProfissional(profissional.getCpf());
+        System.out.println(listaConsultas);
+        request.setAttribute("consultas", listaConsultas);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/index.jsp");
         dispatcher.forward(request, response);
     }

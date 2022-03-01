@@ -13,6 +13,7 @@ import br.ufscar.dc.dsw.domain.Profissional;
 import br.ufscar.dc.dsw.domain.User;
 
 public class ProfissionalDAO extends GenericDAO {
+
     // função para inserir uma entidade do tipo profissional no BD
     public void insert(Profissional profissional) {
         String sql = "INSERT INTO Users(cpf, nome, email, senha, nascimento, papel) VALUES (?, ?, ?, ?, ?, ?)";
