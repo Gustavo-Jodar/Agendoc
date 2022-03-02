@@ -72,7 +72,6 @@ public class ProfissionalController extends HttpServlet {
         Profissional profissional = (Profissional) request.getSession().getAttribute("usuarioLogado");
 
         List<Consulta> listaConsultas = consultaDAO.getConsultasProfissional(profissional.getCpf());
-        System.out.println(listaConsultas);
         request.setAttribute("consultas", listaConsultas);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/index.jsp");

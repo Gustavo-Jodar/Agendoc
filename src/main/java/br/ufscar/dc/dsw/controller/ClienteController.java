@@ -1,9 +1,13 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.ClienteDAO;
+import br.ufscar.dc.dsw.dao.ConsultaDAO;
 import br.ufscar.dc.dsw.domain.Cliente;
+import br.ufscar.dc.dsw.domain.Consulta;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,10 +22,12 @@ public class ClienteController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private ClienteDAO dao;
+    private ConsultaDAO consultaDAO;
 
     @Override
     public void init() {
         dao = new ClienteDAO();
+        consultaDAO = new ConsultaDAO();
     }
 
     @Override
@@ -57,6 +63,11 @@ public class ClienteController extends HttpServlet {
 
     private void apresentaPaginaCliente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cliente cliente = (Cliente) request.getSession().getAttribute("usuarioLogado");
+
+        List<Consulta> listaConsultas = consultaDAO.getConsultasCliente(cliente.getCpf());
+        request.setAttribute("consultas", listaConsultas);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/index.jsp");
         dispatcher.forward(request, response);
     }
