@@ -213,4 +213,38 @@ public class ProfissionalDAO extends GenericDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public Profissional getByCpf(String cpf_in) {
+        Profissional profissional = null;
+
+        String sql = "SELECT Users.cpf, nome, email, senha, nascimento, area, especialidade, bio FROM Users, Profissionais WHERE (Users.cpf=Profissionais.cpf) AND (Users.cpf=?);";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, cpf_in);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String cpf = resultSet.getString("cpf");
+                String nome = resultSet.getString("nome");
+                String email = resultSet.getString("email");
+                String senha = resultSet.getString("senha");
+                String bio = resultSet.getString("bio");
+                String area = resultSet.getString("area");
+                String especialidade = resultSet.getString("especialidade");
+                Date nascimento = resultSet.getDate("nascimento");
+
+                profissional = new Profissional(cpf, nome, email, senha, bio, area, especialidade,
+                        nascimento);
+            }
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return profissional;
+
+    }
 }

@@ -43,30 +43,26 @@
                 <strong>Consultas em aberto</strong> 
             </header>
             <!-- Aqui ficaria o looping pra mostrar todas consultas, da data mais proxima da atual até a mais antiga -->
+                <c:forEach var="consulta" items="${requestScope.consultas}">
                 <article class="prof-item">
                     <header>
                         <div>
-                            <strong>Carlos Alberto</strong>
-                            <span>Medicina</span>
+                            <strong>${consulta.nome_profissional}</strong>
                         </div>
                     </header>
                 
-                    <p>Consulta agendada para: 27/03/2022</p>
-                    <p>Horário: 14:00 de Brasilia</p>
-                    <p>Modalidade: Presencial</p>
+                    <p>Consulta agendada para: ${consulta.data_consulta}</p>
+                    <p>Horário: ${consulta.horario}:00 de Brasilia</p>
+                    <p>Modalidade: Online</p>
                 
                     <footer>
-                        <p>Especialidade<strong>Cardiologista</strong>
                         </p>
                         <a class ="button"> 
-                            Alterar consulta
+                            Informações da consulta
                         </a>
-                        <!-- Podemoriamos fazer essa opcao q aparece só se a consulta ja tiver passado: -->
-                        <!-- <a class ="button"> 
-                            Avaliar consulta
-                        </a> -->
                     </footer>
                 </article>
+                </c:forEach>
         </main>
     </div>
 

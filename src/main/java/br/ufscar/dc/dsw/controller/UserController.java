@@ -82,9 +82,9 @@ public class UserController extends HttpServlet {
                 case "/verificaUsuarioLogado":
                     verificaUsuarioLogado(request, response);
                     break;
-                //verifica se há usuario logado
+                // verifica se há usuario logado
                 case "/verificaEstaLogado":
-                    verificaEstaLogado(request,response);
+                    verificaEstaLogado(request, response);
                     break;
                 // rota para salvar Profissional no BD
                 case "/saveProfissional":
@@ -151,7 +151,11 @@ public class UserController extends HttpServlet {
         User usuarioLogado = (User) request.getSession().getAttribute("usuarioLogado");
 
         if (usuarioLogado != null) {
-                //se ja tiver logado abre modal pra marcar consulta. Modal n ta abrindo, acho que é pq #abrirModal não funciona aqui
+            // se ja tiver logado abre modal pra marcar consulta. Modal n ta abrindo, acho
+            // que é pq #abrirModal não funciona aqui
+            String cpf_profissional = request.getParameter("cpf");
+            Profissional profissional_escolhido = daoProfissional.getByCpf(cpf_profissional);
+            request.setAttribute("profissionalEscolhido", profissional_escolhido);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/user/appointment.jsp");
             dispatcher.forward(request, response);
         } else {

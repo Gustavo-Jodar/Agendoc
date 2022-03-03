@@ -28,7 +28,10 @@
                 </a>
             </div>
             <div class="header-content">
-                <strong>Marque sua consulta com o doutor XXX</strong> 
+                <strong>Marque sua consulta com ${profissionalEscolhido.nome}</strong>
+                <span>Área: ${profissionalEscolhido.area}</span>
+                <span>Especialidade: ${profissionalEscolhido.especialidade}</span>
+                <p>Biografia: ${profissionalEscolhido.bio}</p>
                 <!-- aqui teria que de alguma forma ter os dados do profissional com quem estou marcando -->
             </div>
         </header>

@@ -71,7 +71,7 @@
                     <footer>
                         <p>Especialidade<strong>${profissional.especialidade}</strong>
                         </p>
-                        <a class="button" href="/<%= contextPath%>/users/verificaEstaLogado">Marcar Consulta</a>
+                        <a class="button" href="/<%= contextPath%>/users/verificaEstaLogado?cpf=<c:out value='${profissional.cpf}'/>">Marcar Consulta</a>
                         <!-- encaminha para pagina de login se nao estiver logado -->
                     </footer>
                 </article>

@@ -160,7 +160,8 @@ public class ClienteDAO extends GenericDAO {
     public Cliente getByCpf(String cpf_in) {
         Cliente cliente = null;
 
-        String sql = "SELECT * from Clientes WHERE cpf = ?";
+        String sql = "SELECT Users.cpf, nome, email, senha, nascimento, telefone, sexo FROM Users, Clientes WHERE (Users.cpf=Clientes.cpf) AND (Users.cpf = ?);";
+        ;
 
         try {
             Connection conn = this.getConnection();
