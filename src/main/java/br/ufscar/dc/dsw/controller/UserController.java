@@ -82,6 +82,10 @@ public class UserController extends HttpServlet {
                 case "/verificaUsuarioLogado":
                     verificaUsuarioLogado(request, response);
                     break;
+                //verifica se há usuario logado
+                case "/verificaEstaLogado":
+                    verificaEstaLogado(request,response);
+                    break;
                 // rota para salvar Profissional no BD
                 case "/saveProfissional":
                     saveProfissional(request, response);
@@ -136,6 +140,22 @@ public class UserController extends HttpServlet {
             }
         } else {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/users/showProfissionais");
+            dispatcher.forward(request, response);
+        }
+
+    }
+
+    private void verificaEstaLogado(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // checa se já tem um usuário logado
+        User usuarioLogado = (User) request.getSession().getAttribute("usuarioLogado");
+
+        if (usuarioLogado != null) {
+                //se ja tiver logado abre modal pra marcar consulta. Modal n ta abrindo, acho que é pq #abrirModal não funciona aqui
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/user/appointment.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/user/login.jsp");
             dispatcher.forward(request, response);
         }
 

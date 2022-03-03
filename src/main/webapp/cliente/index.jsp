@@ -12,11 +12,11 @@
         String contextPath = request.getContextPath().replace("/", "");
     %>
 
+    <link rel="stylesheet" href="/<%= contextPath%>/styles/perfil.css"> 
     <link rel="stylesheet" href="/<%= contextPath%>/styles/main.css"> 
     <link rel="stylesheet" href="/<%= contextPath%>/styles/header.css">
     <link rel="stylesheet" href="/<%= contextPath%>/styles/page-prof.css"> 
     <!-- <link rel="stylesheet" href="/<%= contextPath%>/styles/forms.css"> -->
-    <link rel="stylesheet" href="/<%= contextPath%>/styles/perfil-client.css"> 
 
 </head>
 <body id= "page-start" >
@@ -31,6 +31,14 @@
         </header>
 
         <main>
+            <div class="buttons-container">
+                <a class ="button" href="/<%= contextPath%>/users/showProfissionais"> 
+                    Marque uma consulta!
+                </a>
+                <a class ="button" href="${pageContext.request.contextPath}/users/logout">
+                    Sair
+                </a>
+            </div>
             <header class="title">
                 <strong>Consultas em aberto</strong> 
             </header>
@@ -60,17 +68,6 @@
                     </footer>
                 </article>
         </main>
-    </div>
-
-    <div class="page-footer">
-        <div class="buttons-container">
-            <a class ="button" href="/<%= contextPath%>/users/showProfissionais"> 
-                Marque uma consulta!
-            </a>
-            <a class ="button" href="${pageContext.request.contextPath}/users/logout">
-                Sair
-            </a>
-        </div>
     </div>
 
 </body>

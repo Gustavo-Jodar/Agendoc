@@ -15,10 +15,7 @@
     <link rel="stylesheet" href="/<%= contextPath%>/styles/main.css"> 
     <link rel="stylesheet" href="/<%= contextPath%>/styles/header.css">
     <link rel="stylesheet" href="/<%= contextPath%>/styles/page-prof.css"> 
-    <link rel="stylesheet" href="/<%= contextPath%>/styles/perfil-prof.css">
-    <link rel="stylesheet" href="/<%= contextPath%>/styles/perfil-client.css"> 
-
-    <script src="../scripts/addField.js" defer></script>
+    <link rel="stylesheet" href="/<%= contextPath%>/styles/perfil.css"> 
 
 </head>
 <body id= "page-start" >
@@ -28,95 +25,50 @@
 
             <div class="header-content">
                 <strong>Bem vindo (a) ${sessionScope.usuarioLogado.nome}</strong>
-                <p>Selecione seus horarios disponiveis e disponibilize consultas!</p>
+                <p>Agora suas consultas já estão sendo disponibilizadas!</p>
             </div>
         </header>
 
         <main>
-            <div class="container">
-                <div class="appointments">
-                    <header class="title">
-                        <strong>Consultas em aberto</strong> 
-                    </header>
-                    <!-- Aqui ficaria o looping pra mostrar todas consultas, da data mais proxima da atual até a mais antiga -->
-                        <c:forEach var="consulta" items="${requestScope.consultas}">
-                        <article class="prof-item">
-                            <header>
-                                <div>
-                                    <strong>${consulta.nome_cliente}</strong>
-                                    <!-- <span>Consulta particular</span> -->
-                                </div>
-                            </header>
-                        
-                            <p>Consulta agendada para: ${consulta.data_consulta}</p>
-                            <p>Horário: ${consulta.horario}:00 de Brasilia</p>
-                            <p>Modalidade: Online</p>
-                        
-                            <footer>
-                                <p>Consulta<strong>Particular</strong>
-                                </p>
-                                <a class ="button"> 
-                                    Alterar consulta
-                                </a>
-                                <!-- Podemoriamos fazer essa opcao q aparece só se a consulta ja tiver passado: -->
-                                <!-- <a class ="button"> 
-                                    Avaliar consulta
-                                </a> -->
-                            </footer>
-                        </article>
-                        </c:forEach>
-                </div>
-                <div class="schedule">
-                    <header class="title">
-                        <strong>Altere seus horários disponiveis</strong> 
-                    </header>
-                    <fieldset id="schedule-items">
-                        <legend>Horários disponíveis para atendimento
-                            <button type="button" id="add-time">+ Novo Horario</button>
-                        </legend>
-                        <div class="schedule-item">
-    
-                            <div class="select-block">
-                                <label for="weekday">Dia da semana</label>
-                                <select name="weekday[]">
-                                    <option value="">Selecione uma opção</option>
-                                    <option value="0">Domingo</option>
-                                    <option value="1">Segunda-feira</option>
-                                    <option value="2">Terça-feira</option>
-                                    <option value="3">Quarta-feira</option>
-                                    <option value="4">Quinta-feira</option>
-                                    <option value="5">Sexta-feira</option>
-                                    <option value="6">Sábado</option>
-                                </select>
-                            </div>
-                            
-                            <div class="input-block">
-                                <label for="time_from">Das</label>
-                                <input type="time" name="time_from[]">
-                            </div>
-    
-                            <div class="input-block">
-                                <label for="time_to">Até</label>
-                                <input type="time" name="time_to[]">
-                            </div>
-    
-                        </div>
-    
-                    </fieldset>
-                </div>
+            <div class="buttons-container">
+                <a class ="button" href="/<%= contextPath%>/users/showProfissionais"> 
+                    Marque uma consulta!
+                </a>
+                <a class ="button" href="${pageContext.request.contextPath}/users/logout">
+                    Sair
+                </a>
             </div>
+        <header class="title">
+            <strong>Consultas em aberto</strong> 
+        </header>
+        <!-- Aqui ficaria o looping pra mostrar todas consultas, da data mais proxima da atual até a mais antiga -->
+            <c:forEach var="consulta" items="${requestScope.consultas}">
+            <article class="prof-item">
+                <header>
+                    <div>
+                        <strong>${consulta.nome_cliente}</strong>
+                        <!-- <span>Consulta particular</span> -->
+                    </div>
+                </header>
+            
+                <p>Consulta agendada para: ${consulta.data_consulta}</p>
+                <p>Horário: ${consulta.horario}:00 de Brasilia</p>
+                <p>Modalidade: Online</p>
+            
+                <footer>
+                    <p>Consulta<strong>Particular</strong>
+                    </p>
+                    <a class ="button"> 
+                        Alterar consulta
+                    </a>
+                    <!-- Podemoriamos fazer essa opcao q aparece só se a consulta ja tiver passado: -->
+                    <!-- <a class ="button"> 
+                        Avaliar consulta
+                    </a> -->
+                </footer>
+            </article>
+            </c:forEach>
         </main>
-    </div>
-
-    <div class="page-footer">
-        <div class="buttons-container">
-            <a class ="button" href="/<%= contextPath%>/users/showProfissionais"> 
-                Marque uma consulta!
-            </a>
-            <a class ="button" href="${pageContext.request.contextPath}/users/logout">
-                Sair
-            </a>
-        </div>
     </div>
 
 </body>

@@ -71,9 +71,7 @@
                     <footer>
                         <p>Especialidade<strong>${profissional.especialidade}</strong>
                         </p>
-                        <a class ="button" href="/<%= contextPath%>/users/showLogin"> 
-                            Marcar hora
-                        </a>
+                        <a class="button" href="/<%= contextPath%>/users/verificaEstaLogado">Marcar Consulta</a>
                         <!-- encaminha para pagina de login se nao estiver logado -->
                     </footer>
                 </article>
