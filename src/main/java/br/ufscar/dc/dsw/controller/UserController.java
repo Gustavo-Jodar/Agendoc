@@ -156,7 +156,7 @@ public class UserController extends HttpServlet {
             String cpf_profissional = request.getParameter("cpf");
             Profissional profissional_escolhido = daoProfissional.getByCpf(cpf_profissional);
             request.setAttribute("profissionalEscolhido", profissional_escolhido);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/user/appointment.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/appointment.jsp");
             dispatcher.forward(request, response);
         } else {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/user/login.jsp");
@@ -312,7 +312,7 @@ public class UserController extends HttpServlet {
         area = f.formataString(area);
 
         String startDateStrNascimento = request.getParameter("nascimento");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             Date nascimento = sdf.parse(startDateStrNascimento);
@@ -358,7 +358,7 @@ public class UserController extends HttpServlet {
         String startDateStrNascimento = request.getParameter("birth-date");
         startDateStrNascimento = startDateStrNascimento.replace('/', '-');
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             Date nascimento = sdf.parse(startDateStrNascimento);

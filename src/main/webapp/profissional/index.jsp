@@ -31,9 +31,6 @@
 
         <main>
             <div class="buttons-container">
-                <a class ="button" href="/<%= contextPath%>/users/showProfissionais"> 
-                    Marque uma consulta!
-                </a>
                 <a class ="button" href="${pageContext.request.contextPath}/users/logout">
                     Sair
                 </a>

@@ -200,7 +200,7 @@ public class AdminController extends HttpServlet {
         String startDateStrNascimento = request.getParameter("nascimento");
         startDateStrNascimento = startDateStrNascimento.replace('/', '-');
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             Date nascimento = sdf.parse(startDateStrNascimento);
@@ -237,7 +237,7 @@ public class AdminController extends HttpServlet {
         String startDateStrNascimento = request.getParameter("nascimento");
         startDateStrNascimento = startDateStrNascimento.replace('/', '-');
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             Date nascimento = sdf.parse(startDateStrNascimento);

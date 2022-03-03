@@ -30,8 +30,8 @@ CREATE TABLE Profissionais(cpf CHAR(16) NOT NULL UNIQUE,
 						   );																	
 
 --cria a tabela de consultas
-CREATE TABLE Consultas(cpf_profissional VARCHAR(16) NOT NULL UNIQUE,
-					   cpf_cliente VARCHAR(16) NOT NULL UNIQUE,
+CREATE TABLE Consultas(cpf_profissional VARCHAR(16) NOT NULL,
+					   cpf_cliente VARCHAR(16) NOT NULL,
 					   data_consulta DATE NOT NULL,
 					   horario INTEGER NOT NULL CHECK (horario >= 0 and horario <= 23),
 					   link_meet VARCHAR(150),
