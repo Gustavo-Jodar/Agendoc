@@ -58,7 +58,7 @@
                 
                     <footer>
                         </p>
-                        <a class ="button"> 
+                        <a class ="button" href="/<%= contextPath%>/cliente/editAppointment.jsp"> 
                             <fmt:message key="appointment_info"/>
                         </a>
                     </footer>

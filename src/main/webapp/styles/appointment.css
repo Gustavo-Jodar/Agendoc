@@ -62,3 +62,27 @@ select.form-control{
     padding: 0 1.6rem;
     font: 1.6rem Comic;
 }
+
+div .link-time{
+    display: flex;
+    align-items: baseline;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+strong{
+    margin-right: 1rem;
+}
+
+.cancel{
+    display: flex !important;
+}
+
+.link{
+    width: 40%;
+}
+
+.saveLink{
+    width: 10%;
+    margin-left: 0.5rem;
+}
