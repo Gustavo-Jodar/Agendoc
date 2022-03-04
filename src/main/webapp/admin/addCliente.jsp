@@ -54,6 +54,13 @@
                             <input name="sexo" type="text" required /><br/>
                         </div>
                 </form>
+                <div id="erro">
+                <div>
+                    <c:forEach var="erro" items="${mensagens.erros}">
+                        <div class="alerta" > ${erro} </div>
+                        </c:forEach>
+                </div>
+            </div>
                     <button type="submit" form="register-prof" value="Salvar"><fmt:message key="save_register"/></button>
             </main>
         </div>

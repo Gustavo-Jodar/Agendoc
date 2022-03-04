@@ -9,6 +9,7 @@
         <meta content="utf-8" http-equiv="encoding">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Agendoc</title> 
+        
     </head>
     <body id= "page-prof-register">
                 <fmt:bundle basename="messages">
@@ -67,6 +68,13 @@
                                 <input type="especialidade" id="especialidade" name="especialidade" required>
                         </div>
                 </form>
+                <div id="erro">
+                <div>
+                    <c:forEach var="erro" items="${mensagens.erros}">
+                        <div class="alerta" > ${erro} </div>
+                        </c:forEach>
+                </div>
+            </div>
                     <button type="submit" form="register-prof" value="Salvar"><fmt:message key="save_register"/></button>
             </main>
         </div>

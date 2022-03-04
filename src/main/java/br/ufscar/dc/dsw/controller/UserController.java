@@ -268,10 +268,10 @@ public class UserController extends HttpServlet {
 
                         return;
                     } else {
-                        erros.add("Senha inválida!");
+                        erros.add("Senha inválida!\nInvalid Password!");
                     }
                 } else {
-                    erros.add("Usuário não encontrado!");
+                    erros.add("Usuário não encontrado!\nUser not found!");
                 }
             }
         }
@@ -280,10 +280,16 @@ public class UserController extends HttpServlet {
         request.setAttribute("mensagens", erros);
 
         request.getAttribute("javax.servlet.forward.request_uri");
+
+        RequestDispatcher dispatcher = request
+                .getRequestDispatcher("/user/login.jsp");
+        dispatcher.forward(request, response);
+
     }
 
     private void saveProfissional(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
+        Erro erros = new Erro();
         request.setCharacterEncoding("UTF-8");
         String cpf = request.getParameter("cpf");
         String nome = request.getParameter("nome");
@@ -333,7 +339,19 @@ public class UserController extends HttpServlet {
             }
 
         } catch (RuntimeException | ParseException | IOException e) {
-            throw new ServletException(e);
+            request.setAttribute("mensagens", erros);
+            erros.add(
+                    "Operação não sucedida, verifique se seu dados estão corretos!\nOperation failed, please check if your data is correct!");
+            User usuario = (User) request.getSession().getAttribute("usuarioLogado");
+            if (usuario == null) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/cadastro.jsp");
+                dispatcher.forward(request, response);
+                return;
+            } else if (usuario.getPapel().replaceAll("\\P{L}+", "").equals("ADMIN")) {
+                RequestDispatcher rd = request.getRequestDispatcher("/admin/addProfissional.jsp");
+                rd.forward(request, response);
+                return;
+            }
         }
 
     }
@@ -348,6 +366,8 @@ public class UserController extends HttpServlet {
     private void saveCliente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         request.setCharacterEncoding("UTF-8");
+        Erro erros = new Erro();
+
         String cpf = request.getParameter("cpf");
         String nome = request.getParameter("name");
         String email = request.getParameter("email");
@@ -379,7 +399,19 @@ public class UserController extends HttpServlet {
             }
 
         } catch (RuntimeException | ParseException | IOException e) {
-            throw new ServletException(e);
+            request.setAttribute("mensagens", erros);
+            erros.add(
+                    "Operação não sucedida, verifique se seu dados estão corretos!\nOperation failed, please check if your data is correct!");
+            User usuario = (User) request.getSession().getAttribute("usuarioLogado");
+            if (usuario == null) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/cadastro.jsp");
+                dispatcher.forward(request, response);
+                return;
+            } else if (usuario.getPapel().replaceAll("\\P{L}+", "").equals("ADMIN")) {
+                RequestDispatcher rd = request.getRequestDispatcher("/admin/addCliente.jsp");
+                rd.forward(request, response);
+                return;
+            }
         }
 
     }

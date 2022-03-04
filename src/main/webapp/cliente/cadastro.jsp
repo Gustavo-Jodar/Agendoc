@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="../styles/header.css">
         <link rel="stylesheet" href="../styles/page-profissional-login.css"> 
         <link rel="stylesheet" href="../styles/forms.css">
+        <link rel="stylesheet" href="../styles/erro.css">
 
         <script src="../scripts/addField.js" defer></script>
 
@@ -75,6 +76,16 @@
                         </div>
                     </fieldset>
                 </form>
+
+        <c:if test="${mensagens.existeErros}">
+            <div id="erro">
+                <div>
+                    <c:forEach var="erro" items="${mensagens.erros}">
+                        <div class="alerta" > ${erro} </div>
+                        </c:forEach>
+                </div>
+            </div>
+        </c:if> 
                 <footer>
                     <button type="submit" form="register-prof" value="Cadastrar"><fmt:message key="save_register"/></button>
                 </footer>    

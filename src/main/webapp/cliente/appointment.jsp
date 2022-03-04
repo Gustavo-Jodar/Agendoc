@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/<%= contextPath%>/styles/page-prof.css"> 
     <link rel="stylesheet" href="/<%= contextPath%>/styles/forms.css">
     <link rel="stylesheet" href="/<%= contextPath%>/styles/appointment.css">
+    <link rel="stylesheet" href="/<%= contextPath%>/styles/erro.css">
 
 </head>
 <body id= "page-start" >
@@ -61,10 +62,15 @@
                                         <option value="<c:out value='${line}'/>">${line}h00</option>
                                     </c:forEach>
                             </select>
-                            
-
                             <button type="submit" class="save" form="register-prof" value="Cadastrar"><fmt:message key="schedule_appointment"/></button>
                             <a class="button" href="/<%= contextPath%>/users/verificaEstaLogado?cpf=<c:out value='${profissionalEscolhido.cpf}'/>"><fmt:message key="check_other_times"/></a>
+                            <div id="erro">
+                                <div>
+                                    <c:forEach var="erro" items="${mensagens.erros}">
+                                    <div class="alerta" > ${erro} </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
                         </c:when>    
                         <c:otherwise>
                             <form action="/<%= contextPath%>/clientes/reapresentaMarcarConsulta?cpf=<c:out value='${profissionalEscolhido.cpf}'/>" method="POST" id="register-prof">
@@ -75,9 +81,15 @@
                                     <input type="date" name="data_consulta" class="data-input" required>
                                 </div>
                             </div>
-                            </form>
-                            
+                            </form>    
                             <button type="submit" form="register-prof" class="save" value=""><fmt:message key="choose_time"/></button>
+                            <div id="erro">
+                                <div>
+                                    <c:forEach var="erro" items="${mensagens.erros}">
+                                        <div class="alerta" > ${erro} </div>
+                                        </c:forEach>
+                                </div>
+                            </div>
                         </c:otherwise>
                     </c:choose>
             </fieldset>

@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="../styles/header.css">
         <link rel="stylesheet" href="../styles/page-profissional-login.css"> 
         <link rel="stylesheet" href="../styles/forms.css">
-
+        <link rel="stylesheet" href="../styles/erro.css">
 
     </head>
     <body id= "page-prof-register" >
@@ -88,7 +88,16 @@
                             </div>
                         </fieldset>
 
-                    </form>
+                    </form>            
+                    <c:if test="${mensagens.existeErros}">
+                        <div id="erro">
+                            <div>
+                                <c:forEach var="erro" items="${mensagens.erros}">
+                                    <div class="alerta" > ${erro} </div>
+                                    </c:forEach>
+                            </div>
+                        </div>
+                    </c:if> 
                 </fmt:bundle>
                 <footer>
                     <button type="submit" form="register-prof"><fmt:message key="save_register"/></button>

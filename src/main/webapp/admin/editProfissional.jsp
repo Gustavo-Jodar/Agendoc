@@ -50,7 +50,7 @@
                                 <textarea name="bio" id="bio"><c:out value='${profissionalEdit.bio}'/></textarea>
                         </div>
                         <div>
-                            <label for="area"><fmt:message key="knowledge_area"/></label>
+                            <label for="area"><fmt:message key="area_of_knowlegde"/></label>
                             <input name="area" id="area" value="<c:out value='${profissionalEdit.area}'/>" required>
                         </div>
                         <div class="input-block">
@@ -58,7 +58,11 @@
                                 <input type="especialidade" id="especialidade" name="especialidade" value="<c:out value='${profissionalEdit.especialidade}'/>" required>
                         </div>
                 </form>
-                    <button type="submit" form="register-prof" value="Salvar"><fmt:message key="sabe_area"/></button>
+
+                    <c:forEach var="erro" items="${mensagens.erros}">
+                        <div class="alerta" > ${erro} </div>
+                        </c:forEach>
+                    <button type="submit" form="register-prof" value="Salvar"><fmt:message key="save_register"/></button>
             </main>
         </div>
         </fmt:bundle>

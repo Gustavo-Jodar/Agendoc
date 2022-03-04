@@ -17,14 +17,13 @@
             <%
                 String contextPath = request.getContextPath().replace("/", "");
             %>
-            <br/>
             <div align="center" >
                     <a href="/<%=contextPath%>/admins/listaClientes"><fmt:message key="back"/></a>    
             </div>
             
             <main align="center">
                 <form action="editaCliente" method="POST" id="register-prof">
-                        <legend><fmt:message key="cliente_data"/></legend>
+                        <legend><fmt:message key="client_data"/></legend>
                         <br/>
                         <div>
                             <label for="cpf"><fmt:message key="id_cpf"/></label>
@@ -43,7 +42,7 @@
                             <input name="senha" id="pass" value="<c:out value='${clienteEdit.senha}'/>" required>
                         </div>
                         <div >
-                            <label for="birth"><fmt:message key="birthk"/></label>
+                            <label for="birth"><fmt:message key="birth"/></label>
                                 <input type="date" name="nascimento" value="<c:out value='${clienteEdit.nascimento}'/>" >
                         </div>
                         <div >
@@ -55,7 +54,15 @@
                             <input name="sexo" type="text" value="<c:out value='${clienteEdit.sexo}'/>" /><br/>
                         </div>
                 </form>
+                <div id="erro">
+                <div>
+                    <c:forEach var="erro" items="${mensagens.erros}">
+                        <div class="alerta" > ${erro} </div>
+                        </c:forEach>
+                </div>
+            </div>
                     <button type="submit" form="register-prof" value="Salvar"><fmt:message key="save_register"/></button>
+                
             </main>
         </div>
     </fmt:bundle>

@@ -187,7 +187,7 @@ public class ConsultaDAO extends GenericDAO {
         }
 
         List<Integer> horariosDisponiveis = new ArrayList<>();
-        for (int i = 0; i <= 23; i++) {
+        for (int i = 8; i <= 17; i++) {
             boolean horarioLivre = true;
             for (Consulta c : consultasNoMesmoDia) {
                 if (c.getHorario() == i) {

@@ -215,7 +215,13 @@ public class AdminController extends HttpServlet {
             response.sendRedirect("listaClientes");
 
         } catch (RuntimeException | ParseException | IOException e) {
-            throw new ServletException(e);
+            Erro erro = new Erro();
+            erro.add(
+                    "Operação não sucedida, verifique se seu dados estão corretos!\nOperation failed, please check if your data is correct!");
+            request.setAttribute("mensagens", erro);
+            RequestDispatcher rd = request.getRequestDispatcher("/admins/apresentaEdicaoCliente");
+            rd.forward(request, response);
+            // throw new ServletException(e);
         }
 
     }
@@ -252,7 +258,13 @@ public class AdminController extends HttpServlet {
             response.sendRedirect("listaProfissionais");
 
         } catch (RuntimeException | ParseException | IOException e) {
-            throw new ServletException(e);
+            Erro erro = new Erro();
+            erro.add(
+                    "Operação não sucedida, verifique se seu dados estão corretos!\nOperation failed, please check if your data is correct!");
+            request.setAttribute("mensagens", erro);
+            RequestDispatcher rd = request.getRequestDispatcher("/admins/apresentaEdicaoProfissional");
+            rd.forward(request, response);
+            // throw new ServletException(e);
         }
     }
 

@@ -12,13 +12,14 @@
         <link rel="stylesheet" href="../styles/page-profissional-login.css"> 
         <link rel="stylesheet" href="../styles/forms.css">
         <link rel="stylesheet" href="../styles/login.css">
+        <link rel="stylesheet" href="../styles/erro.css">
 
         <script src="../scripts/addField.js" defer></script>
 <body  id= "page-prof-register">
     <fmt:bundle basename="messages">
     <%
         String contextPath = request.getContextPath().replace("/", "");
-    %>     
+    %>    
     <div id= "container">
             <header class="page-header">
                 <div class="top-bar-container">
@@ -44,7 +45,15 @@
             </div>
             <input class="button" type="submit" name="loginData" value=<fmt:message key="enter"/>>
         </form>
-        
+        <c:if test="${mensagens.existeErros}">
+            <div id="erro">
+                <div>
+                    <c:forEach var="erro" items="${mensagens.erros}">
+                        <div class="alerta" > ${erro} </div>
+                        </c:forEach>
+                </div>
+            </div>
+        </c:if> 
     <footer>
         <div align="center">
             <a href="../user/userType.jsp"><fmt:message key="no_account"/></a>

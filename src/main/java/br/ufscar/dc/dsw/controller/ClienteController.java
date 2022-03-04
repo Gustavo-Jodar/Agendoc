@@ -6,6 +6,7 @@ import br.ufscar.dc.dsw.dao.ConsultaDAO;
 import br.ufscar.dc.dsw.domain.Cliente;
 import br.ufscar.dc.dsw.domain.Consulta;
 import br.ufscar.dc.dsw.domain.Profissional;
+import br.ufscar.dc.dsw.util.Erro;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -104,7 +105,15 @@ public class ClienteController extends HttpServlet {
 
         try {
             Date data_consulta = sdf.parse(startDateStrConsulta);
-
+            Date hoje = new Date();
+            System.out.println(hoje);
+            if (hoje.equals(data_consulta) || hoje.after(data_consulta)) {
+                Erro erro = new Erro();
+                erro.add("Data inválida! | Invalid date!");
+                request.setAttribute("mensagens", erro);
+                RequestDispatcher rd = request.getRequestDispatcher("/cliente/appointment.jsp");
+                rd.forward(request, response);
+            }
             Consulta consulta = new Consulta(cpf_profissional, usuarioLogado.getCpf(), data_consulta, 0, "link_meet",
                     profissional_escolhido.getnome(), usuarioLogado.getnome());
 
@@ -150,9 +159,9 @@ public class ClienteController extends HttpServlet {
                     profissional_escolhido.getnome(), usuarioLogado.getnome());
 
             consultaDAO.insert(consulta);
-
             RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/showPaginaCliente");
             dispatcher.forward(request, response);
+
         } catch (ParseException e) {
             throw new ServletException(e);
         }
