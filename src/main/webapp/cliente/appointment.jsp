@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/<%= contextPath%>/styles/header.css">
     <link rel="stylesheet" href="/<%= contextPath%>/styles/page-prof.css"> 
     <link rel="stylesheet" href="/<%= contextPath%>/styles/forms.css">
-    <!-- <link rel="stylesheet" href="/<%= contextPath%>/styles/modal.css">  -->
+    <link rel="stylesheet" href="/<%= contextPath%>/styles/appointment.css">
 
 </head>
 <body id= "page-start" >
@@ -61,19 +61,23 @@
                                         <option value="<c:out value='${line}'/>">${line}h00</option>
                                     </c:forEach>
                             </select>
-                            <button type="submit" form="register-prof" value="Cadastrar"><fmt:message key="schedule_appointment"/></button>
+                            
+
+                            <button type="submit" class="save" form="register-prof" value="Cadastrar"><fmt:message key="schedule_appointment"/></button>
                             <a class="button" href="/<%= contextPath%>/users/verificaEstaLogado?cpf=<c:out value='${profissionalEscolhido.cpf}'/>"><fmt:message key="check_other_times"/></a>
                         </c:when>    
                         <c:otherwise>
                             <form action="/<%= contextPath%>/clientes/reapresentaMarcarConsulta?cpf=<c:out value='${profissionalEscolhido.cpf}'/>" method="POST" id="register-prof">
                             <div class="schedule-item">
                                 <div class="input-block">
+                                
                                     <label for="weekday"><fmt:message key="date"/></label>
-                                    <input type="date" name="data_consulta" required>
+                                    <input type="date" name="data_consulta" class="data-input" required>
                                 </div>
                             </div>
                             </form>
-                            <button type="submit" form="register-prof" value=""><fmt:message key="choose_time"/></button>
+                            
+                            <button type="submit" form="register-prof" class="save" value=""><fmt:message key="choose_time"/></button>
                         </c:otherwise>
                     </c:choose>
             </fieldset>
