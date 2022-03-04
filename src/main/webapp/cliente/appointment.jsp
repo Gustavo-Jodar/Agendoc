@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/<%= contextPath%>/styles/header.css">
     <link rel="stylesheet" href="/<%= contextPath%>/styles/page-prof.css"> 
     <link rel="stylesheet" href="/<%= contextPath%>/styles/forms.css">
-    <!-- <link rel="stylesheet" href="/<%= contextPath%>/styles/modal.css">  -->
+    <link rel="stylesheet" href="/<%= contextPath%>/styles/appointment.css">
 
 </head>
 <body id= "page-start" >
@@ -59,7 +59,7 @@
                                         <option value="<c:out value='${line}'/>">${line}h00</option>
                                     </c:forEach>
                             </select>
-                            <button type="submit" form="register-prof" value="Cadastrar">Agendar consulta!</button>
+                            <button type="submit" class="save" form="register-prof" value="Cadastrar">Agendar consulta!</button>
                             <a class="button" href="/<%= contextPath%>/users/verificaEstaLogado?cpf=<c:out value='${profissionalEscolhido.cpf}'/>">Verificar outros horários disponíveis</a>
                         </c:when>    
                         <c:otherwise>
@@ -67,11 +67,12 @@
                             <div class="schedule-item">
                                 <div class="input-block">
                                     <label for="weekday">Data</label>
-                                    <input type="date" name="data_consulta" required>
+                                    <input type="date" name="data_consulta" class="data-input" required>
                                 </div>
                             </div>
                             </form>
-                            <button type="submit" form="register-prof" value="">Verificar horários disponíveis</button>
+                            
+                            <button type="submit" form="register-prof" class="save" value="">Verificar horários disponíveis</button>
                         </c:otherwise>
                     </c:choose>
             </fieldset>
