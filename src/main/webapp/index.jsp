@@ -1,5 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html> 
@@ -11,29 +12,31 @@
         String contextPath = request.getContextPath().replace("/", "");
     %>
     
-    <title>Agendoc | Plataforma de consultas online</title> 
+    <title>Agendoc</title> 
     <link rel="stylesheet" href="/<%= contextPath%>/styles/main.css"> 
     <link rel="stylesheet" href="/<%= contextPath%>/styles/page-landing.css"> 
 </head>
 <body id= "page-landing" >
-    <div id= "container">
-        <div class="logo-container">
-            <h1>Agendoc<h1>
-            <h2> Agendoc | Plataforma de consultas online </h2>
+    <fmt:bundle basename="messages">
+        <div id= "container">
+            <div class="logo-container">
+                <h1>Agendoc<h1>
+                <h2><fmt:message key="logo"/></h2>
+            </div>
+            <img class= "hero-image" src="/<%= contextPath%>/images/landing.png" alt="Plataforma de Consultas">
+
+        <div class="buttons-container">
+            <a class ="button" href="/<%= contextPath%>/users/verificaUsuarioLogado"> 
+                <fmt:message key="start"/>
+            </a>
         </div>
-        <img class= "hero-image" src="/<%= contextPath%>/images/landing.png" alt="Plataforma de Consultas">
 
-    <div class="buttons-container">
-        <a class ="button" href="/<%= contextPath%>/users/verificaUsuarioLogado"> 
-            Comece agora!
-        </a>
-    </div>
+        <p class="total-connections">
+            Total de ${requestScope.numProfissionais} cadastros de profissionais já realizados!
+        </p>
 
-    <p class="total-connections">
-        Total de ${requestScope.numProfissionais} cadastros de profissionais já realizados!
-    </p>
-
-    </div>
+        </div>
+    </fmt:bundle>
 </body>
 </html>
 

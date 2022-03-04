@@ -1,10 +1,11 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html> 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Agendoc | Plataforma para agendamentos de consultas online</title> 
+        <title>Agendoc</title> 
 
         <link rel="stylesheet" href="../styles/main.css"> 
         <link rel="stylesheet" href="../styles/header.css">
@@ -14,6 +15,7 @@
 
     </head>
     <body id= "page-prof-register" >
+            <fmt:bundle basename="messages">
         <div id= "container">
             <header class="page-header">
                 <div class="top-bar-container">
@@ -23,8 +25,8 @@
                 </div>
 
                 <div class="header-content">
-                    <strong>Você quer disponibilizar suas consultas online?</strong> 
-                    <p>O primeiro passo, é preencher esse formulário de inscrição</p>
+                    <strong><fmt:message key="make_available_appointments"/></strong> 
+                    <p><fmt:message key="acess_to_specialities_sub"/></p>
                 </div>
             </header>
 
@@ -32,10 +34,10 @@
                 <fmt:bundle basename="messages">
                     <form action="saveProfissional" method="POST" id="register-prof">
                         <fieldset>
-                            <legend>Seus dados</legend>
+                            <legend><fmt:message key="your_data"/></legend>
 
                             <div class="input-block">
-                                <label for="nome">Nome Completo</label>
+                                <label for="nome"><fmt:message key="name"/></label>
                                 <input name="nome" id="nome" required>
                             </div>
                             <div class="input-block">
@@ -43,7 +45,7 @@
                                 <input name="email" id="email" required>
                             </div>
                             <div class="input-block">
-                                <label for="senha">Senha</label>
+                                <label for="senha"><fmt:message key="password"/></label>
                                 <input name="senha" id="senha" required>
                             </div>
                             <div class="input-block">
@@ -51,37 +53,37 @@
                                 <input name="avatar" id="avatar" type="url">
                             </div>
                             <div class="input-block">
-                                <label for="cpf">CPF <small>(somente número)</small></label>
+                                <label for="cpf"><fmt:message key="id_cpf"/><small><fmt:message key="just_number"/></small></label>
                                 <input name="cpf" id="cpf" type="number" required>
                             </div>
                             <div class="input-block">
-                                <label for="nascimento">Nascimento</label>
+                                <label for="nascimento"><fmt:message key="birth"/></label>
                                 <input type="date" name="nascimento">
                             </div>
 
                             <div class="textarea-block">
-                                <label for="bio">Biografia</label>
+                                <label for="bio"><fmt:message key="bio"/></label>
                                 <textarea name="bio" id="bio"></textarea>
                             </div>
                         </fieldset>
 
                         <fieldset>
-                            <legend>Área de conhecimento</legend>
+                            <legend><fmt:message key="area_of_knowlegde"/></legend>
                             <div class="select-block">
                                 <label for="area">Área</label>
-                                <select name="area" id="area required">
-                                    <option value="">Selecione uma opção</option>
-                                    <option value="1">Medicina</option>
-                                    <option value="2">Advocacia</option>
-                                    <option value="3">Psicologia</option>
-                                    <option value="4">Educaçao</option>
-                                    <option value="5">Nutriçao</option>
-                                    <option value="4">Terapia</option>
+                                <select name="area" id="area required" required>
+                                    <option value=""><fmt:message key="select_option"/></option>
+                                    <option value="1"><fmt:message key="Medicina"/></option>
+                                    <option value="2"><fmt:message key="Advocacia"/></option>
+                                    <option value="3"><fmt:message key="Psicologia"/></option>
+                                    <option value="4"><fmt:message key="Educacao"/></option>
+                                    <option value="5"><fmt:message key="Nutricao"/></option>
+                                    <option value="4"><fmt:message key="Terapia"/></option>
                                 </select>
                             </div>
 
                             <div class="input-block">
-                                <label for="especialidade">Especialidade</label>
+                                <label for="especialidade"><fmt:message key="speciality"/></label>
                                 <input type="especialidade" id="especialidade" name="especialidade" required>
                             </div>
                         </fieldset>
@@ -89,11 +91,11 @@
                     </form>
                 </fmt:bundle>
                 <footer>
-                    <button type="submit" form="register-prof">Salvar cadastro</button>
+                    <button type="submit" form="register-prof"><fmt:message key="save_register"/></button>
                 </footer>
             </main>
         </div>
-
+        </fmt:bundle>
     </body>
 </html>
 

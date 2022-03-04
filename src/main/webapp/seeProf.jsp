@@ -1,12 +1,13 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="pt_br"> 
 <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendoc | Plataforma para agendamentos de consultas online</title> 
+    <title>Agendoc</title> 
 
     <%
         String contextPath = request.getContextPath().replace("/", "");
@@ -19,7 +20,7 @@
 
 </head>
 <body id= "page-start" >
-   
+    <fmt:bundle basename="messages">
     <div id= "container">
         <header class="page-header">
             <div class="top-bar-container">
@@ -29,12 +30,12 @@
             </div>
 
             <div class="header-content">
-                <strong>Esses são os profissionais disponíveis</strong> 
+                <strong><fmt:message key="profissionais_filtro"/></strong> 
                 <form id="search-prof" method="post" action="${pageContext.request.contextPath}/users/showProfissionais" >
                     <div class="select-block">
                         <label for="area">Area</label>
                         <select name="area" id="area">
-                            <option value="">Selecione uma opção</option>
+                            <option value=""><fmt:message key="select_option"/></option>
                             <option value="Medicina">Medicina</option>
                             <option value="Advocacia">Advocacia</option>
                             <option value="Psicologia">Psicologia</option>
@@ -45,10 +46,10 @@
                     </div>
                     
                     <div class="input-block">
-                        <label for="weekday">Especialidade</label>
+                        <label for="weekday"><fmt:message key="speciality"/></label>
                         <input name="especialidade" id="especialidade"/>
                     </div>
-                    <button type="submit">Filtrar</button>
+                    <button type="submit"><fmt:message key="filter"/></button>
                 </form>
             </div>
         </header>
@@ -69,9 +70,9 @@
                     <p>${profissional.bio}</p>
                 
                     <footer>
-                        <p>Especialidade<strong>${profissional.especialidade}</strong>
+                        <p><fmt:message key="speciality"/><strong>${profissional.especialidade}</strong>
                         </p>
-                        <a class="button" href="/<%= contextPath%>/users/verificaEstaLogado?cpf=<c:out value='${profissional.cpf}'/>">Marcar Consulta</a>
+                        <a class="button" href="/<%= contextPath%>/users/verificaEstaLogado?cpf=<c:out value='${profissional.cpf}'/>"><fmt:message key="schedule_appointment"/></a>
                         <!-- encaminha para pagina de login se nao estiver logado -->
                     </footer>
                 </article>
@@ -80,6 +81,7 @@
 
         </main>
     </div>
+    </fmt:bundle>
 </body>
 </html>
 

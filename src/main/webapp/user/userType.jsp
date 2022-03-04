@@ -1,12 +1,14 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Agendoc | Plataforma de consultas online</title>
+        <title>Agendoc</title>
     </head>
     <body>
+        <fmt:bundle basename="messages">
         <%
 			String contextPath = request.getContextPath().replace("/", "");
 		%>
@@ -19,11 +21,12 @@
             <!-- <br/>
             <a href="/<%= contextPath%>/clientes/showLogin">Marcar Consulta</a>
             <br> -->
-            <a class ="profissionais" href="../users/showCadastroCliente">Sou um cliente</a>
+            <a class ="profissionais" href="../users/showCadastroCliente"><fmt:message key="i_am_client"/></a>
             <br>
-            <a class ="profissionais" href="../users/showCadastroProfissional">Sou um profissional</a>
+            <a class ="profissionais" href="../users/showCadastroProfissional"><fmt:message key="i_am_professional"/></a>
             <br/>
             <br/>
         </div>
+    </fmt:bundle>
     </body>
 </html>

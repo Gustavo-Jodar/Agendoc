@@ -1,12 +1,13 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="pt_br"> 
 <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendoc | Plataforma para agendamentos de consultas online</title> 
+    <title>Agendoc</title> 
 
     <%
         String contextPath = request.getContextPath().replace("/", "");
@@ -20,6 +21,7 @@
 
 </head>
 <body id= "page-start" >
+        <fmt:bundle basename="messages">
     <div id= "container">
         <header class="page-header">
             <div class="top-bar-container">
@@ -28,53 +30,54 @@
                 </a>
             </div>
             <div class="header-content">
-                <strong>Marque sua consulta com ${profissionalEscolhido.nome}</strong>
-                <span>Área: ${profissionalEscolhido.area}</span>
-                <span>Especialidade: ${profissionalEscolhido.especialidade}</span>
-                <p>Biografia: ${profissionalEscolhido.bio}</p>
+                <strong><fmt:message key="make_appointment_with"/> ${profissionalEscolhido.nome}</strong>
+                <span>Area: ${profissionalEscolhido.area}</span>
+                <span><fmt:message key="speciality"/>: ${profissionalEscolhido.especialidade}</span>
+                <p><fmt:message key="bio"/>: ${profissionalEscolhido.bio}</p>
                 <!-- aqui teria que de alguma forma ter os dados do profissional com quem estou marcando -->
             </div>
         </header>
         <div class="schedule">
             <header class="title">
-                <strong>Agende sua consulta online</strong> 
+                <strong><fmt:message key="make_appointment"/></strong> 
             </header>
             <fieldset id="schedule-items" class="schedule-box">
-                <legend>Escolha a data para atendimento</legend>
+                <legend><fmt:message key="choose_date"/></legend>
                 <c:choose>
                         <c:when test="${consulta_aux.data_consulta!=null}">     
                             <form action="/<%= contextPath%>/clientes/cadastraConsulta?cpf_profissional=<c:out value='${profissionalEscolhido.cpf}'/>" method="POST" id="register-prof">
                             <div>
                                 <div>
-                                    <label for="birth">Data</label>
+                                    <label for="birth"><fmt:message key="date"/></label>
                                     <input type="date" name="data_consulta" value="<c:out value='${data_nao_formatada}'/>" readonly>
                                 </div>
                             </div>
-                            <legend>Escolha um horário</legend>
+                            <legend><fmt:message key="choose_time"/></legend>
                             <br/>
-                            <p>As consultas duram 50 minutos, com uma janela de 10 minutos entre consulta!</p>      
+                            <p><fmt:message key="info_time"/></p>      
                             <select class="form-control" name="horario" required>
-                                    <option value="" required>Selecione o horário</option>
+                                    <option value="" required><fmt:message key="select_option"/></option>
                                     <c:forEach var="line" items="${horariosLivres}">
                                         <option value="<c:out value='${line}'/>">${line}h00</option>
                                     </c:forEach>
                             </select>
-                            <button type="submit" form="register-prof" value="Cadastrar">Agendar consulta!</button>
-                            <a class="button" href="/<%= contextPath%>/users/verificaEstaLogado?cpf=<c:out value='${profissionalEscolhido.cpf}'/>">Verificar outros horários disponíveis</a>
+                            <button type="submit" form="register-prof" value="Cadastrar"><fmt:message key="schedule_appointment"/></button>
+                            <a class="button" href="/<%= contextPath%>/users/verificaEstaLogado?cpf=<c:out value='${profissionalEscolhido.cpf}'/>"><fmt:message key="check_other_times"/></a>
                         </c:when>    
                         <c:otherwise>
                             <form action="/<%= contextPath%>/clientes/reapresentaMarcarConsulta?cpf=<c:out value='${profissionalEscolhido.cpf}'/>" method="POST" id="register-prof">
                             <div class="schedule-item">
                                 <div class="input-block">
-                                    <label for="weekday">Data</label>
+                                    <label for="weekday"><fmt:message key="date"/></label>
                                     <input type="date" name="data_consulta" required>
                                 </div>
                             </div>
                             </form>
-                            <button type="submit" form="register-prof" value="">Verificar horários disponíveis</button>
+                            <button type="submit" form="register-prof" value=""><fmt:message key="choose_time"/></button>
                         </c:otherwise>
                     </c:choose>
             </fieldset>
         </div>
     </div>
+    </fmt:bundle>
 </body>

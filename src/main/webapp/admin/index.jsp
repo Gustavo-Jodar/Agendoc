@@ -1,4 +1,5 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
@@ -7,20 +8,22 @@
         <title>Agendoc</title>
     </head> 
     <body>
-        <h1>Página do Admin</h1>
-        <p>Olá ${sessionScope.usuarioLogado.nome}</p>
+        <fmt:bundle basename="messages">
+        <h1><fmt:message key="admin_page"/></h1>
+        <p><fmt:message key="welcome"/> Admin</p>
         <div align="center">
             <ul>
                 <li>
-                    <a href="${pageContext.request.contextPath}/admins/listaClientes">CRUD Clientes</a>
+                    <a href="${pageContext.request.contextPath}/admins/listaClientes"><fmt:message key="client_crud"/></a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath}/admins/listaProfissionais">CRUD Profissionais</a>
+                    <a href="${pageContext.request.contextPath}/admins/listaProfissionais"><fmt:message key="professional_crud"/></a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath}/users/logout">Sair</a>
+                    <a href="${pageContext.request.contextPath}/users/logout"><fmt:message key="logout"/></a>
                 </li>
             </ul>
         </div>
+        </fmt:bundle>
     </body>
 </html>

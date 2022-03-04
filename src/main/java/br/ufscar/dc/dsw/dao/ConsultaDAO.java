@@ -161,8 +161,6 @@ public class ConsultaDAO extends GenericDAO {
             PreparedStatement statement = conn.prepareStatement(sql2);
             statement.setString(1, consulta_incompleta.getCpfCliente().replaceAll("\\s+", ""));
 
-            System.out.println(consulta_incompleta.getCpfCliente());
-
             java.sql.Date data_consulta_in_sql = new java.sql.Date(
                     consulta_incompleta.getData_consulta().getTime());
             statement.setDate(2, data_consulta_in_sql);
@@ -187,8 +185,6 @@ public class ConsultaDAO extends GenericDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        System.out.println(consultasNoMesmoDia);
 
         List<Integer> horariosDisponiveis = new ArrayList<>();
         for (int i = 0; i <= 23; i++) {

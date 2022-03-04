@@ -109,7 +109,6 @@ public class ClienteController extends HttpServlet {
                     profissional_escolhido.getnome(), usuarioLogado.getnome());
 
             List<Integer> horariosLivres = consultaDAO.getHorariosLivresDeProfissionalEClienteNoDia(consulta);
-            System.out.println(horariosLivres);
 
             request.setAttribute("horariosLivres", horariosLivres);
             request.setAttribute("consulta_aux", consulta);
