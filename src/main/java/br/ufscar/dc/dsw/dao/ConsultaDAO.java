@@ -21,8 +21,8 @@ public class ConsultaDAO extends GenericDAO {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setString(1, consulta.getCpfProfissional().replaceAll("\\s+", ""));
-            statement.setString(2, consulta.getCpfCliente().replaceAll("\\s+", ""));
+            statement.setString(1, consulta.getCpf_profissional().replaceAll("\\s+", ""));
+            statement.setString(2, consulta.getCpf_cliente().replaceAll("\\s+", ""));
             java.sql.Date sqlDNascimento = new java.sql.Date(consulta.getData_consulta().getTime());
             statement.setDate(3, sqlDNascimento);
             statement.setInt(4, consulta.getHorario());
@@ -125,7 +125,7 @@ public class ConsultaDAO extends GenericDAO {
             Connection conn = this.getConnection();
 
             PreparedStatement statement = conn.prepareStatement(sql1);
-            statement.setString(1, consulta_incompleta.getCpfProfissional());
+            statement.setString(1, consulta_incompleta.getCpf_profissional());
             java.sql.Date data_consulta_in_sql = new java.sql.Date(
                     consulta_incompleta.getData_consulta().getTime());
             statement.setDate(2, data_consulta_in_sql);
@@ -159,7 +159,7 @@ public class ConsultaDAO extends GenericDAO {
             Connection conn = this.getConnection();
 
             PreparedStatement statement = conn.prepareStatement(sql2);
-            statement.setString(1, consulta_incompleta.getCpfCliente().replaceAll("\\s+", ""));
+            statement.setString(1, consulta_incompleta.getCpf_cliente().replaceAll("\\s+", ""));
 
             java.sql.Date data_consulta_in_sql = new java.sql.Date(
                     consulta_incompleta.getData_consulta().getTime());
@@ -200,6 +200,90 @@ public class ConsultaDAO extends GenericDAO {
             }
         }
         return horariosDisponiveis;
+    }
+
+    public Consulta getConsulta(Consulta consulta_incompleta) {
+        String sql1 = "SELECT cpf_profissional, cpf_cliente, data_consulta, horario, link_meet, nome_profissional, nome_cliente FROM Consultas WHERE (Consultas.cpf_profissional = ?) AND (Consultas.data_consulta = ?) AND (Consultas.horario = ?);";
+        Consulta consulta = null;
+        try {
+            Connection conn = this.getConnection();
+
+            PreparedStatement statement = conn.prepareStatement(sql1);
+            statement.setString(1, consulta_incompleta.getCpf_profissional().replaceAll("\\s+", ""));
+            java.sql.Date data_consulta_in_sql = new java.sql.Date(
+                    consulta_incompleta.getData_consulta().getTime());
+            statement.setDate(2, data_consulta_in_sql);
+            statement.setInt(3, consulta_incompleta.getHorario());
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String cpf_profissional = resultSet.getString("cpf_profissional");
+                String cpf_cliente = resultSet.getString("cpf_cliente");
+                Date data_consulta = resultSet.getDate("data_consulta");
+                Integer horario = resultSet.getInt("horario");
+                String link_meet = resultSet.getString("link_meet");
+                String nome_profissional = resultSet.getString("nome_profissional");
+                String nome_cliente = resultSet.getString("nome_cliente");
+
+                consulta = new Consulta(cpf_profissional, cpf_cliente,
+                        data_consulta, horario, link_meet,
+                        nome_profissional, nome_cliente);
+            }
+            resultSet.close();
+            statement.close();
+            conn.close();
+            return consulta;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteConsulta(Consulta consulta_incompleta) {
+        String sql1 = "DELETE FROM Consultas WHERE (Consultas.cpf_profissional = ?) AND (Consultas.data_consulta = ?) AND (Consultas.horario = ?);";
+
+        try {
+            Connection conn = this.getConnection();
+
+            PreparedStatement statement = conn.prepareStatement(sql1);
+
+            statement.setString(1, consulta_incompleta.getCpf_profissional().replaceAll("\\s+", ""));
+            java.sql.Date data_consulta_in_sql = new java.sql.Date(
+                    consulta_incompleta.getData_consulta().getTime());
+            statement.setDate(2, data_consulta_in_sql);
+            statement.setInt(3, consulta_incompleta.getHorario());
+
+            statement.executeUpdate();
+            statement.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void changeLink(Consulta consulta_incompleta) {
+        String sql1 = "UPDATE Consultas SET link_meet = ?  WHERE (Consultas.cpf_profissional = ?) AND (Consultas.data_consulta = ?) AND (Consultas.horario = ?);";
+
+        try {
+            Connection conn = this.getConnection();
+
+            PreparedStatement statement = conn.prepareStatement(sql1);
+
+            statement.setString(1, consulta_incompleta.getLink_meet().replaceAll("\\s+", ""));
+            statement.setString(2, consulta_incompleta.getCpf_profissional().replaceAll("\\s+", ""));
+            java.sql.Date data_consulta_in_sql = new java.sql.Date(
+                    consulta_incompleta.getData_consulta().getTime());
+            statement.setDate(3, data_consulta_in_sql);
+            statement.setInt(4, consulta_incompleta.getHorario());
+
+            statement.executeUpdate();
+            statement.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

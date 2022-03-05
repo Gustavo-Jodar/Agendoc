@@ -63,9 +63,17 @@ public class ClienteController extends HttpServlet {
                 // disponíveis
                 case "/reapresentaMarcarConsulta":
                     reapresentaMarcarConsulta(request, response);
-                    // função para cadastrar uma consulta
+                    break;
+                // função para cadastrar uma consulta
                 case "/cadastraConsulta":
                     cardastraConsulta(request, response);
+                    break;
+                case "/apresentaConsulta":
+                    apresentaConsulta(request, response);
+                    break;
+                case "/cancelaConsulta":
+                    cancelaConsulta(request, response);
+                    break;
                 default:
                     apresentaPaginaCliente(request, response);
                     break;
@@ -106,7 +114,6 @@ public class ClienteController extends HttpServlet {
         try {
             Date data_consulta = sdf.parse(startDateStrConsulta);
             Date hoje = new Date();
-            System.out.println(hoje);
             if (hoje.equals(data_consulta) || hoje.after(data_consulta)) {
                 Erro erro = new Erro();
                 erro.add("Data inválida! | Invalid date!");
@@ -166,6 +173,73 @@ public class ClienteController extends HttpServlet {
             throw new ServletException(e);
         }
 
+    }
+
+    private void apresentaConsulta(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException {
+
+        Cliente usuarioLogado = (Cliente) request.getSession().getAttribute("usuarioLogado");
+
+        // hora da consulta
+        Integer hora = Integer.parseInt(request.getParameter("hora"));
+
+        // dados do profissional
+        String cpf_profissional = request.getParameter("cpf_profissional");
+        Profissional profissional_escolhido = profissionalDAO.getByCpf(cpf_profissional);
+        request.setAttribute("profissionalEscolhido", profissional_escolhido);
+
+        // data da consulta
+        String startDateStrConsulta = request.getParameter("data_consulta");
+        startDateStrConsulta = startDateStrConsulta.replace('/', '-');
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date data_consulta = sdf.parse(startDateStrConsulta);
+            Consulta consulta = new Consulta(cpf_profissional, usuarioLogado.getCpf(), data_consulta, hora, "link_meet",
+                    profissional_escolhido.getnome(), usuarioLogado.getnome());
+
+            consulta = consultaDAO.getConsulta(consulta);
+
+            request.setAttribute("consulta", consulta);
+            request.setAttribute("data_nao_formatada", startDateStrConsulta);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/editAppointment.jsp");
+            dispatcher.forward(request, response);
+        } catch (ParseException e) {
+            throw new ServletException(e);
+        }
+    }
+
+    private void cancelaConsulta(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException {
+
+        Cliente usuarioLogado = (Cliente) request.getSession().getAttribute("usuarioLogado");
+
+        // hora da consulta
+        Integer hora = Integer.parseInt(request.getParameter("hora"));
+
+        // dados do profissional
+        String cpf_profissional = request.getParameter("cpf_profissional");
+        Profissional profissional_escolhido = profissionalDAO.getByCpf(cpf_profissional);
+        request.setAttribute("profissionalEscolhido", profissional_escolhido);
+
+        // data da consulta
+        String startDateStrConsulta = request.getParameter("data_consulta");
+        startDateStrConsulta = startDateStrConsulta.replace('/', '-');
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date data_consulta = sdf.parse(startDateStrConsulta);
+            Consulta consulta = new Consulta(cpf_profissional, usuarioLogado.getCpf(), data_consulta, hora, "link_meet",
+                    profissional_escolhido.getnome(), usuarioLogado.getnome());
+
+            consultaDAO.deleteConsulta(consulta);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/apresentaPaginaCliente");
+            dispatcher.forward(request, response);
+        } catch (ParseException e) {
+            throw new ServletException(e);
+        }
     }
 
 }

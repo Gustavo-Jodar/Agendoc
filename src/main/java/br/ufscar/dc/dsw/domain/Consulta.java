@@ -24,7 +24,7 @@ public class Consulta {
         this.nome_cliente = nome_cliente;
     }
 
-    public String getCpfProfissional() {
+    public String getCpf_profissional() {
         return cpf_profissional;
     }
 
@@ -32,7 +32,7 @@ public class Consulta {
         this.cpf_profissional = cpf_profissional;
     }
 
-    public String getCpfCliente() {
+    public String getCpf_cliente() {
         return cpf_cliente;
     }
 

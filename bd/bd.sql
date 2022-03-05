@@ -42,6 +42,13 @@ CREATE TABLE Consultas(cpf_profissional VARCHAR(16) NOT NULL,
 					   CONSTRAINT PK_CONSULTAS PRIMARY KEY(cpf_profissional, cpf_cliente, data_consulta, horario)
 					  );                      
 
+CREATE TABLE Curriculos(cpf_profissional VARCHAR(16) NOT NULL,
+					   	curriculo VARCHAR(50) NOT NULL,
+						CONSTRAINT FK_CPF_PROFISSIONAL_CURRICULO FOREIGN KEY(cpf_profissional) REFERENCES Profissionais(cpf) ON DELETE CASCADE,
+					   	CONSTRAINT PK_CURRICULO PRIMARY KEY (cpf_profissional)
+					   );
+
+
 --inserindo dados
 --INSERE admin
 INSERT INTO Users(cpf, nome, email, senha, nascimento, papel) VALUES ('000.000.000-00',

@@ -58,7 +58,7 @@
                 
                     <footer>
                         </p>
-                        <a class ="button" href="/<%= contextPath%>/cliente/editAppointment.jsp"> 
+                        <a class ="button" href="/<%= contextPath%>/clientes/apresentaConsulta?data_consulta=<c:out value='${consulta.data_consulta}'/>&cpf_profissional=<c:out value='${consulta.cpf_profissional}' />&hora=<c:out value='${consulta.horario}'/>"> 
                             <fmt:message key="appointment_info"/>
                         </a>
                     </footer>

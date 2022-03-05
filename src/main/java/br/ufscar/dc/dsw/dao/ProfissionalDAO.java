@@ -16,6 +16,7 @@ public class ProfissionalDAO extends GenericDAO {
 
     // função para inserir uma entidade do tipo profissional no BD
     public void insert(Profissional profissional) {
+        System.out.println("entrou!");
         String sql = "INSERT INTO Users(cpf, nome, email, senha, nascimento, papel) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             Connection conn = this.getConnection();
@@ -54,6 +55,24 @@ public class ProfissionalDAO extends GenericDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        sql = "INSERT INTO Curriculos(cpf_profissional, curriculo) VALUES (?, ?)";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, profissional.getCpf());
+            statement.setString(2, profissional.getCurriculo());
+
+            statement.executeUpdate();
+
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     // função que retorna todas as entidades do tipo profissional do BD

@@ -8,6 +8,7 @@ public class Profissional extends User {
     private String bio;
     private String area;
     private String especialidade;
+    private String curriculo;
 
     public Profissional(String cpf, String nome, String email, String senha, String bio, String area,
             String especialidade, Date nascimento) {
@@ -16,6 +17,16 @@ public class Profissional extends User {
         this.bio = bio;
         this.area = area;
         this.especialidade = especialidade;
+    }
+
+    public Profissional(String cpf, String nome, String email, String senha, String bio, String area,
+            String especialidade, Date nascimento, String curriculo) {
+
+        super(cpf, nome, email, senha, nascimento, "PROFISSIONAL");
+        this.bio = bio;
+        this.area = area;
+        this.especialidade = especialidade;
+        this.curriculo = curriculo;
     }
 
     public String getBio() {
@@ -40,5 +51,13 @@ public class Profissional extends User {
 
     public void setEspecialidade(String especialidade) {
         this.especialidade = especialidade;
+    }
+
+    public String getCurriculo() {
+        return curriculo;
+    }
+
+    public void setCurriculo(String curriculo) {
+        this.curriculo = curriculo;
     }
 }

@@ -8,7 +8,9 @@ import br.ufscar.dc.dsw.domain.Cliente;
 import br.ufscar.dc.dsw.domain.Consulta;
 
 import java.io.IOException;
+import java.util.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,12 +59,20 @@ public class ProfissionalController extends HttpServlet {
                 case "/showPaginaProfissional":
                     apresentaPaginaProfissional(request, response);
                     break;
-                // passível de remoção
+                case "/apresentaConsulta":
+                    apresentaConsulta(request, response);
+                    break;
+                case "/cancelaConsulta":
+                    cancelaConsulta(request, response);
+                    break;
+                case "/mudaLinkConsulta":
+                    mudaLinkConsulta(request, response);
+                    // passível de remoção
                 default:
                     apresentaPaginaProfissional(request, response);
                     break;
             }
-        } catch (RuntimeException | IOException | ServletException e) {
+        } catch (RuntimeException | IOException | ParseException | ServletException e) {
             throw new ServletException(e);
         }
     }
@@ -76,6 +86,108 @@ public class ProfissionalController extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/index.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private void apresentaConsulta(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException {
+
+        Profissional usuarioLogado = (Profissional) request.getSession().getAttribute("usuarioLogado");
+
+        // hora da consulta
+        Integer hora = Integer.parseInt(request.getParameter("hora"));
+
+        // dados do profissional
+        String cpf_cliente = request.getParameter("cpf_cliente");
+        Profissional profissional_escolhido = profissionalDAO.getByCpf(usuarioLogado.getCpf());
+        request.setAttribute("profissionalEscolhido", profissional_escolhido);
+
+        // data da consulta
+        String startDateStrConsulta = request.getParameter("data_consulta");
+        startDateStrConsulta = startDateStrConsulta.replace('/', '-');
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date data_consulta = (Date) sdf.parse(startDateStrConsulta);
+            Consulta consulta = new Consulta(usuarioLogado.getCpf(), cpf_cliente, data_consulta, hora, "link_meet",
+                    profissional_escolhido.getnome(), "fulano");
+
+            consulta = consultaDAO.getConsulta(consulta);
+
+            request.setAttribute("consulta", consulta);
+            request.setAttribute("data_nao_formatada", startDateStrConsulta);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/editAppointment.jsp");
+            dispatcher.forward(request, response);
+        } catch (ParseException e) {
+            throw new ServletException(e);
+        }
+    }
+
+    private void cancelaConsulta(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException {
+
+        Profissional usuarioLogado = (Profissional) request.getSession().getAttribute("usuarioLogado");
+
+        // hora da consulta
+        Integer hora = Integer.parseInt(request.getParameter("hora"));
+
+        // dados do profissional
+        String cpf_cliente = request.getParameter("cpf_cliente");
+        Profissional profissional_escolhido = profissionalDAO.getByCpf(usuarioLogado.getCpf());
+        request.setAttribute("profissionalEscolhido", profissional_escolhido);
+
+        // data da consulta
+        String startDateStrConsulta = request.getParameter("data_consulta");
+        startDateStrConsulta = startDateStrConsulta.replace('/', '-');
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date data_consulta = (Date) sdf.parse(startDateStrConsulta);
+            Consulta consulta = new Consulta(usuarioLogado.getCpf(), cpf_cliente, data_consulta, hora, "link_meet",
+                    profissional_escolhido.getnome(), "fulano");
+
+            consultaDAO.deleteConsulta(consulta);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/profissionais/apresentaPaginaProfissional");
+            dispatcher.forward(request, response);
+        } catch (ParseException e) {
+            throw new ServletException(e);
+        }
+    }
+
+    private void mudaLinkConsulta(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException {
+
+        Profissional usuarioLogado = (Profissional) request.getSession().getAttribute("usuarioLogado");
+
+        // hora da consulta
+        Integer hora = Integer.parseInt(request.getParameter("hora"));
+
+        // dados do profissional
+        String cpf_cliente = request.getParameter("cpf_cliente");
+        Profissional profissional_escolhido = profissionalDAO.getByCpf(usuarioLogado.getCpf());
+        request.setAttribute("profissionalEscolhido", profissional_escolhido);
+
+        // link do meet novo
+        String link_meet = request.getParameter("link_meet");
+
+        // data da consulta
+        String startDateStrConsulta = request.getParameter("data_consulta");
+        startDateStrConsulta = startDateStrConsulta.replace('/', '-');
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date data_consulta = (Date) sdf.parse(startDateStrConsulta);
+            Consulta consulta = new Consulta(usuarioLogado.getCpf(), cpf_cliente, data_consulta, hora, link_meet,
+                    profissional_escolhido.getnome(), "fulano");
+
+            consultaDAO.changeLink(consulta);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/profissionais/apresentaConsulta");
+            dispatcher.forward(request, response);
+        } catch (ParseException e) {
+            throw new ServletException(e);
+        }
     }
 
 }

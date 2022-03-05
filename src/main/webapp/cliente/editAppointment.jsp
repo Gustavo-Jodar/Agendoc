@@ -31,27 +31,35 @@
                     </a>
                 </div>
                 <div class="header-content">
-                    <strong> Algum problema com a sua consulta?</strong>
-                    <span> Sempre evite desmarcar consultas de ultima hora. </span>
-                    <span> Nao se atrase. </span>
+                    <strong><fmt:message key="any_problem"/></strong>
+                    <span><fmt:message key="any_problem_sub"/></span>
                 </div>
             </header>
             <div class="schedule">
                 <div class="link-time">
-                    <strong>Profissional:</strong> 
-                    <legend> Sophia Schuster Médica Pedriatra</legend>
+                    <strong><fmt:message key="professional"/>:</strong>
+                    <legend> ${profissionalEscolhido.nome} ${profissionalEscolhido.area} - ${profissionalEscolhido.especialidade}</legend>
                 </div>
                 <div class="link-time">
-                    <strong>Data e horário da consulta:</strong> 
-                    <legend> 03/02/2022 às 17:00 horas</legend>
+                    <strong><fmt:message key="date_time"/>:</strong> 
+                    <legend> ${consulta.data_consulta} - ${consulta.horario}h00min</legend>
                 </div>
                 <div class="link-time">
-                    <strong>Entre nesse link no horario da consulta:</strong>
-                    <a href="googlemeet.com"> Link do meet </a> 
+                <c:choose>
+                    <c:when test="${consulta.link_meet == 'ainda sem link'}">
+                        <strong><fmt:message key="enter_link"/>:</strong>
+                        <legend> Link meet ainda não disponível</legend>
+                    </c:when>
+                    <c:otherwise>
+                        <strong><fmt:message key="enter_link"/>:</strong>
+                        <a href="<c:out value='${consulta.link_meet}'/>"> Link do meet </a> 
+                    </c:otherwise> 
+                </c:choose>
                 </div>
                 <div class="cancel">
-                    <button type="cancel" class="save" value=""> Cancelar consulta </button>
-                    <button type="cancel" class="save" value=""> Alterar consulta </button>
+                    <a class="save" type="cancel" href="/<%= contextPath%>/clientes/cancelaConsulta?data_consulta=<c:out value='${consulta.data_consulta}'/>&cpf_profissional=<c:out value='${consulta.cpf_profissional}' />&hora=<c:out value='${consulta.horario}'/>" 
+                    onclick="return confirm('Tem certeza que deseja cancela essa consulta? | Are you sure you want to cancel this appointment?');"
+                    ><fmt:message key="cancel_appointment"/></a>
                 </div>
             </div>
         </div>

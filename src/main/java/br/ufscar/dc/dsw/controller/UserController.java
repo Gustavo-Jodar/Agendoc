@@ -7,6 +7,7 @@ import br.ufscar.dc.dsw.util.Erro;
 import br.ufscar.dc.dsw.util.Formata;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Random;
 import java.util.Date;
 
 import br.ufscar.dc.dsw.domain.Cliente;
@@ -23,17 +24,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import java.io.*;
 import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.annotation.MultipartConfig;
 
 @WebServlet(urlPatterns = "/users/*")
-@MultipartConfig(
-  fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
-  maxFileSize = 1024 * 1024 * 10,      // 10 MB
-  maxRequestSize = 1024 * 1024 * 100   // 100 MB
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+        maxFileSize = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize = 1024 * 1024 * 100 // 100 MB
 )
 
 public class UserController extends HttpServlet {
@@ -96,10 +97,10 @@ public class UserController extends HttpServlet {
                 case "/verificaEstaLogado":
                     verificaEstaLogado(request, response);
                     break;
-                //salva curriculo pdf do profissional
+                // salva curriculo pdf do profissional
                 // case "/fileuploadservlet":
-                //     fileUploadServlet(request,response);
-                //     break;
+                // fileUploadServlet(request,response);
+                // break;
                 // rota para salvar Profissional no BD
                 case "/saveProfissional":
                     saveProfissional(request, response);
@@ -235,6 +236,7 @@ public class UserController extends HttpServlet {
     protected void login_logout(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Erro erros = new Erro();
+
         if (request.getParameter("loginData") != null) {
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
@@ -303,6 +305,7 @@ public class UserController extends HttpServlet {
 
     private void saveProfissional(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
+
         Erro erros = new Erro();
         request.setCharacterEncoding("UTF-8");
         String cpf = request.getParameter("cpf");
@@ -312,17 +315,33 @@ public class UserController extends HttpServlet {
         String bio = request.getParameter("bio");
         String especialidade = request.getParameter("especialidade");
 
-        try{
+        Random random = new Random();
+        Integer n = random.nextInt(10000);
+        String novoNome = "curriculo-" + n.toString() + ".pdf";
+
+        try {
             Part filePart = request.getPart("file");
             String fileName = filePart.getSubmittedFileName();
-            for (Part part : request.getParts()) {
-                part.write("Agendoc\\webapp\\upload\\" + fileName);
-            } 
-        }catch (RuntimeException | IOException e) {
+
+            for (Part part : request.getParts()) { // FALTA ESCREVER O COM A QUANTIDADE
+                part.write("/home/gustavo/Documentos/facul/WEB1/T1/Agendoc/src/main/webapp/uploads/" + novoNome);
+            }
+        } catch (RuntimeException | IOException e) {
+
             request.setAttribute("mensagens", erros);
             erros.add(
-                "Operação não sucedida, verifique se o seu pdf é válido estão corretos!\nOperation failed, please check if your pdf is valid!"
-            );
+                    "Operação não sucedida, verifique se o seu pdf é válido estão corretos!\nOperation failed, please check if your pdf is valid!");
+            User usuario = (User) request.getSession().getAttribute("usuarioLogado");
+            if (usuario == null) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/cadastro.jsp");
+                dispatcher.forward(request, response);
+                return;
+            } else if (usuario.getPapel().replaceAll("\\P{L}+", "").equals("ADMIN")) {
+                RequestDispatcher rd = request.getRequestDispatcher("/admin/addProfissional.jsp");
+                rd.forward(request, response);
+                return;
+            }
+
         }
 
         Formata f = new Formata();
@@ -350,7 +369,8 @@ public class UserController extends HttpServlet {
         try {
             Date nascimento = sdf.parse(startDateStrNascimento);
 
-            Profissional profissional = new Profissional(cpf, nome, email, senha, bio, area, especialidade, nascimento);
+            Profissional profissional = new Profissional(cpf, nome, email, senha, bio, area, especialidade, nascimento,
+                    novoNome);
             daoProfissional.insert(profissional);
 
             User usuario = (User) request.getSession().getAttribute("usuarioLogado");
@@ -366,6 +386,7 @@ public class UserController extends HttpServlet {
             }
 
         } catch (RuntimeException | ParseException | IOException e) {
+
             request.setAttribute("mensagens", erros);
             erros.add(
                     "Operação não sucedida, verifique se seu dados estão corretos!\nOperation failed, please check if your data is correct!");
@@ -379,21 +400,10 @@ public class UserController extends HttpServlet {
                 rd.forward(request, response);
                 return;
             }
+
         }
 
     }
-
-//     private void fileUploadServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-//     /* Receive file uploaded to the Servlet from the HTML5 form */
-//     Part filePart = request.getPart("file");
-//     String fileName = filePart.getSubmittedFileName();
-//     for (Part part : request.getParts()) {
-//       part.write("C:\\upload\\" + fileName);
-//     }
-//     response.getWriter().print("The file uploaded sucessfully.");
-//   }
-
 
     private void apresentaFormCadastroProfissional(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

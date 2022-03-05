@@ -40,19 +40,33 @@
             <div class="schedule">
                 <div class="link-time">
                     <strong>Cliente:</strong> 
-                    <legend> Sophia Schuster</legend>
+                    <legend>${consulta.nome_cliente}</legend>
                 </div>
                 <div class="link-time">
                     <strong>Data e horário da consulta:</strong> 
-                    <legend> 03/02/2022 às 17:00 horas</legend>
+                    <legend> ${consulta.data_consulta} - ${consulta.horario}h00min</legend>
                 </div>
                 <div class="link-time">
                     <strong>Cole aqui o link do meet para consulta:</strong>
-                    <input name="link" class="link" type="url">
-                    <button type="save" class="saveLink" value=""> Salvar </button>
+                    <c:choose>
+                        <c:when test="${consulta.link_meet == 'ainda sem link'}">
+                            <form action="/<%= contextPath%>/profissionais/mudaLinkConsulta?data_consulta=<c:out value='${consulta.data_consulta}'/>&cpf_cliente=<c:out value='${consulta.cpf_cliente}' />&hora=<c:out value='${consulta.horario}'/>" method="POST" id="register-prof" >
+                            <input name="link_meet" class="link" type="url" value=""> 
+                            </form>
+                            <button class ="saveLink" form='register-prof' type="submit"> 
+                                Salvar
+                            </button>
+                        </c:when>
+                        <c:otherwise>
+                            <input name="link_meet" class="link" type="url" value="<c:out value='${consulta.link_meet}'/>">
+                        </c:otherwise> 
+                    </c:choose>
+                    <!--<button type="save" class="saveLink" value=""> Salvar </button> -->
                 </div>
                 <div class="cancel">
-                    <button type="cancel" class="save" value=""> Cancelar consulta </button>
+                    <a class="save" type="cancel" href="/<%= contextPath%>/profissionais/cancelaConsulta?data_consulta=<c:out value='${consulta.data_consulta}'/>&cpf_profissional=<c:out value='${consulta.cpf_profissional}' />&hora=<c:out value='${consulta.horario}'/>" 
+                    onclick="return confirm('Tem certeza que deseja cancela essa consulta? | Are you sure you want to cancel this appointment?');"
+                    ><fmt:message key="cancel_appointment"/></a>    
                 </div>
             </div>
         </div>

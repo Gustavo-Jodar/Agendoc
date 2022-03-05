@@ -56,9 +56,9 @@
                 <footer>
                     <p>Consulta<strong>Online</strong>
                     </p>
-                    <a class ="button" href="/<%= contextPath%>/profissional/editAppointment.jsp"> 
-                        <fmt:message key="appointment_info"/>
-                    </a>
+                    <a class ="button" href="/<%= contextPath%>/profissionais/apresentaConsulta?data_consulta=<c:out value='${consulta.data_consulta}'/>&cpf_cliente=<c:out value='${consulta.cpf_cliente}' />&hora=<c:out value='${consulta.horario}'/>"> 
+                            <fmt:message key="appointment_info"/>
+                        </a>
                     <!-- Podemoriamos fazer essa opcao q aparece só se a consulta ja tiver passado: -->
                     <!-- <a class ="button"> 
                         Avaliar consulta
