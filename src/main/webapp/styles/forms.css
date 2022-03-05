@@ -1,6 +1,9 @@
 /* aqui devem vir as configurações que todos formularios tem em comum,
 para nao precisarmos ficar refazendo para cada pagina. */
 
+.file-block{
+    margin-bottom: 1rem;
+}
 
 .select-block label,
 .input-block label,

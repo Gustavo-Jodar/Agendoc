@@ -32,10 +32,17 @@
 
             <main>
                 <fmt:bundle basename="messages">
-                    <form action="saveProfissional" method="POST" id="register-prof">
+                    <!-- <form method="post" action="fileuploadservlet" enctype="multipart/form-data">
+                        <input type="file" name="file" />
+                        <input type="submit" value="Upload" />
+                    </form> -->
+                    <form action="saveProfissional" method="POST" id="register-prof" enctype="multipart/form-data">
                         <fieldset>
                             <legend><fmt:message key="your_data"/></legend>
-
+                            <div class="file-block">
+                                <label for="file">Curriculo em PDF</label>
+                                <input type="file" name="file" />
+                            </div>
                             <div class="input-block">
                                 <label for="nome"><fmt:message key="name"/></label>
                                 <input name="nome" id="nome" required>
@@ -48,10 +55,10 @@
                                 <label for="senha"><fmt:message key="password"/></label>
                                 <input name="senha" id="senha" required>
                             </div>
-                            <div class="input-block">
-                                <label for="avatar">Link da sua foto <small>(comece com https://)</small></label>
+                            <!-- <div class="input-block">
+                                <label for="avatar">Curriculo em PDF</label>
                                 <input name="avatar" id="avatar" type="url">
-                            </div>
+                            </div> -->
                             <div class="input-block">
                                 <label for="cpf"><fmt:message key="id_cpf"/><small><fmt:message key="just_number"/></small></label>
                                 <input name="cpf" id="cpf" type="number" required>

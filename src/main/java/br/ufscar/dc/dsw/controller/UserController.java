@@ -24,7 +24,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
+
 @WebServlet(urlPatterns = "/users/*")
+@MultipartConfig(
+  fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+  maxFileSize = 1024 * 1024 * 10,      // 10 MB
+  maxRequestSize = 1024 * 1024 * 100   // 100 MB
+)
 
 public class UserController extends HttpServlet {
 
@@ -86,6 +96,10 @@ public class UserController extends HttpServlet {
                 case "/verificaEstaLogado":
                     verificaEstaLogado(request, response);
                     break;
+                //salva curriculo pdf do profissional
+                // case "/fileuploadservlet":
+                //     fileUploadServlet(request,response);
+                //     break;
                 // rota para salvar Profissional no BD
                 case "/saveProfissional":
                     saveProfissional(request, response);
@@ -298,6 +312,19 @@ public class UserController extends HttpServlet {
         String bio = request.getParameter("bio");
         String especialidade = request.getParameter("especialidade");
 
+        try{
+            Part filePart = request.getPart("file");
+            String fileName = filePart.getSubmittedFileName();
+            for (Part part : request.getParts()) {
+                part.write("Agendoc\\webapp\\upload\\" + fileName);
+            } 
+        }catch (RuntimeException | IOException e) {
+            request.setAttribute("mensagens", erros);
+            erros.add(
+                "Operação não sucedida, verifique se o seu pdf é válido estão corretos!\nOperation failed, please check if your pdf is valid!"
+            );
+        }
+
         Formata f = new Formata();
         especialidade = f.formataString(especialidade);
 
@@ -355,6 +382,18 @@ public class UserController extends HttpServlet {
         }
 
     }
+
+//     private void fileUploadServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+//     /* Receive file uploaded to the Servlet from the HTML5 form */
+//     Part filePart = request.getPart("file");
+//     String fileName = filePart.getSubmittedFileName();
+//     for (Part part : request.getParts()) {
+//       part.write("C:\\upload\\" + fileName);
+//     }
+//     response.getWriter().print("The file uploaded sucessfully.");
+//   }
+
 
     private void apresentaFormCadastroProfissional(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
