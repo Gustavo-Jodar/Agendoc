@@ -21,6 +21,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.Properties;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 @WebServlet(urlPatterns = "/clientes/*")
 
 public class ClienteController extends HttpServlet {
@@ -171,11 +181,55 @@ public class ClienteController extends HttpServlet {
                     profissional_escolhido.getnome(), usuarioLogado.getnome());
 
             consultaDAO.insert(consulta);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/showPaginaCliente");
-            dispatcher.forward(request, response);
 
         } catch (ParseException e) {
             throw new ServletException(e);
+        }
+        Properties props = new Properties();
+        /** Parâmetros de conexão com servidor Gmail */
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class",
+        "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        Session session = Session.getDefaultInstance(props,
+        new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication()
+            {
+                    return new PasswordAuthentication("contaETCTeste@gmail.com",
+                    "Teste@123");
+            }
+        });
+
+        /** Ativa Debug para sessão */
+        session.setDebug(true);
+
+        try {
+
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress("contaETCTeste@gmail.com"));
+        //Remetente
+
+        Address[] toUser = InternetAddress //Destinatário(s)
+                    .parse("contaETCTeste@gmail.com");
+        //para colocar mais de um email como desinatario (profissional e cliente) fazer assim:
+        // Address[] toUser = InternetAddress //Destinatário(s)
+        //          .parse("seuamigo@gmail.com, seucolega@hotmail.com,
+        //          seuparente@yahoo.com.br");
+
+        message.setRecipients(Message.RecipientType.TO, toUser);
+        message.setSubject("Uma consulta foi marcada - Agendoc");//Assunto
+        message.setText("Seguem as informacoes a respeito de sua consulta:");
+
+        Transport.send(message);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/showPaginaCliente");
+        dispatcher.forward(request, response);
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
         }
 
     }
