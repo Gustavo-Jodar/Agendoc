@@ -172,11 +172,11 @@ public class ClienteController extends HttpServlet {
 
         // link do meet novo
         String link_meet = request.getParameter("link_meet");
-
+        Consulta consulta = null;
         try {
             Date data_consulta = sdf.parse(startDateStrConsulta);
 
-            Consulta consulta = new Consulta(profissional_escolhido.getCpf(), usuarioLogado.getCpf(), data_consulta,
+            consulta = new Consulta(profissional_escolhido.getCpf(), usuarioLogado.getCpf(), data_consulta,
                     horario_consulta, link_meet,
                     profissional_escolhido.getnome(), usuarioLogado.getnome());
 
@@ -190,43 +190,50 @@ public class ClienteController extends HttpServlet {
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class",
-        "javax.net.ssl.SSLSocketFactory");
+                "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
 
         Session session = Session.getDefaultInstance(props,
-        new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication()
-            {
-                    return new PasswordAuthentication("contaETCTeste@gmail.com",
-                    "Teste@123");
-            }
-        });
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("contaETCTeste@gmail.com",
+                                "Teste@123");
+                    }
+                });
 
         /** Ativa Debug para sessão */
         session.setDebug(true);
 
         try {
 
-        Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("contaETCTeste@gmail.com"));
-        //Remetente
+            String email_profissional = profissional_escolhido.getEmail();
+            String email_cliente = usuarioLogado.getEmail();
 
-        Address[] toUser = InternetAddress //Destinatário(s)
-                    .parse("contaETCTeste@gmail.com");
-        //para colocar mais de um email como desinatario (profissional e cliente) fazer assim:
-        // Address[] toUser = InternetAddress //Destinatário(s)
-        //          .parse("seuamigo@gmail.com, seucolega@hotmail.com,
-        //          seuparente@yahoo.com.br");
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("contaETCTeste@gmail.com"));
+            // Remetente
 
-        message.setRecipients(Message.RecipientType.TO, toUser);
-        message.setSubject("Uma consulta foi marcada - Agendoc");//Assunto
-        message.setText("Seguem as informacoes a respeito de sua consulta:");
+            Address[] toUser = InternetAddress // Destinatário(s)
+                    .parse(email_profissional + ", " + email_cliente);
+            // para colocar mais de um email como desinatario (profissional e cliente) fazer
+            // assim:
+            // Address[] toUser = InternetAddress //Destinatário(s)
+            // .parse("seuamigo@gmail.com, seucolega@hotmail.com,
+            // seuparente@yahoo.com.br");
 
-        Transport.send(message);
+            message.setRecipients(Message.RecipientType.TO, toUser);
+            message.setSubject("Uma consulta foi marcada - Agendoc");// Assunto
+            message.setText("Olá " + usuarioLogado.getnome()
+                    + "! Seguem as informacoes a respeito de sua consulta: Profissional: "
+                    + profissional_escolhido.getnome() + " Area: " + profissional_escolhido.getArea()
+                    + " Especialidade: " + profissional_escolhido.getEspecialidade() + " Data e hora de sua consulta: "
+                    + consulta.getData_consulta() + " " + consulta.getHorario() + "h00min");
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/showPaginaCliente");
-        dispatcher.forward(request, response);
+            Transport.send(message);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/showPaginaCliente");
+            dispatcher.forward(request, response);
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
