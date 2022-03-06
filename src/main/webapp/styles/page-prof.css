@@ -144,6 +144,15 @@
     background: var(--color-secondary-dark);
 }
 
+.top-bar-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.top-bar-container .button{
+    color: black;
+}
+
 /* acima desse comentario nós temos o "mobile" pronto do css do study */
 
 @media(min-width:700px){

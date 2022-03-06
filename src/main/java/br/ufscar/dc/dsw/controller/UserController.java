@@ -97,6 +97,10 @@ public class UserController extends HttpServlet {
                 case "/verificaEstaLogado":
                     verificaEstaLogado(request, response);
                     break;
+                //verifica se o usuario deve ser encaminhado para o login ou perfil:
+                 case "/verificaLogin":
+                    verificaLogin(request, response);
+                    break;
                 // salva curriculo pdf do profissional
                 // case "/fileuploadservlet":
                 // fileUploadServlet(request,response);
@@ -173,6 +177,31 @@ public class UserController extends HttpServlet {
             request.setAttribute("profissionalEscolhido", profissional_escolhido);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/appointment.jsp");
             dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/user/login.jsp");
+            dispatcher.forward(request, response);
+        }
+
+    }
+
+     private void verificaLogin(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // checa se já tem um usuário logado, se tiver redireciona para a página dele
+        User usuarioLogado = (User) request.getSession().getAttribute("usuarioLogado");
+
+        if (usuarioLogado != null) {
+            if (usuarioLogado.getPapel().replaceAll("\\P{L}+", "").equals("ADMIN")) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/showPaginaAdmin");
+                dispatcher.forward(request, response);
+            }
+            if (usuarioLogado.getPapel().replaceAll("\\P{L}+", "").equals("CLIENTE")) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/showPaginaCliente");
+                dispatcher.forward(request, response);
+            }
+            if (usuarioLogado.getPapel().replaceAll("\\P{L}+", "").equals("PROFISSIONAL")) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/profissionais/showPaginaProfissional");
+                dispatcher.forward(request, response);
+            }
         } else {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/user/login.jsp");
             dispatcher.forward(request, response);

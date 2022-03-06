@@ -27,6 +27,7 @@
                 <a href="/<%= contextPath%>/users/retornaIndex">
                 <img src="/<%= contextPath%>/images/back.svg" alt="Voltar">
                 </a>
+                <a class="button" href="/<%= contextPath%>/users/verificaLogin">Login / Profile</a>
             </div>
 
             <div class="header-content">
