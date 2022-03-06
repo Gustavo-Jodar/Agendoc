@@ -47,21 +47,8 @@
                     <legend> ${consulta.data_consulta} - ${consulta.horario}h00min</legend>
                 </div>
                 <div class="link-time">
-                    <strong>Cole aqui o link do meet para consulta:</strong>
-                    <c:choose>
-                        <c:when test="${consulta.link_meet == 'ainda sem link'}">
-                            <form action="/<%= contextPath%>/profissionais/mudaLinkConsulta?data_consulta=<c:out value='${consulta.data_consulta}'/>&cpf_cliente=<c:out value='${consulta.cpf_cliente}' />&hora=<c:out value='${consulta.horario}'/>" method="POST" id="register-prof" >
-                            <input name="link_meet" class="link" type="url" value=""> 
-                            </form>
-                            <button class ="saveLink" form='register-prof' type="submit"> 
-                                Salvar
-                            </button>
-                        </c:when>
-                        <c:otherwise>
-                            <input name="link_meet" class="link" type="url" value="<c:out value='${consulta.link_meet}'/>">
-                        </c:otherwise> 
-                    </c:choose>
-                    <!--<button type="save" class="saveLink" value=""> Salvar </button> -->
+                    <strong>Link do Google Meet para a consulta:</strong>
+                    <input name="link_meet" class="link" type="url" value="<c:out value='${consulta.link_meet}'/>">
                 </div>
                 <div class="cancel">
                     <a class="save" type="cancel" href="/<%= contextPath%>/profissionais/cancelaConsulta?data_consulta=<c:out value='${consulta.data_consulta}'/>&cpf_profissional=<c:out value='${consulta.cpf_profissional}' />&hora=<c:out value='${consulta.horario}'/>" 

@@ -45,16 +45,14 @@
                     <legend> ${consulta.data_consulta} - ${consulta.horario}h00min</legend>
                 </div>
                 <div class="link-time">
-                <c:choose>
-                    <c:when test="${consulta.link_meet == 'ainda sem link'}">
-                        <strong><fmt:message key="enter_link"/>:</strong>
-                        <legend> Link meet ainda não disponível</legend>
-                    </c:when>
-                    <c:otherwise>
-                        <strong><fmt:message key="enter_link"/>:</strong>
-                        <a href="<c:out value='${consulta.link_meet}'/>"> Link do meet </a> 
-                    </c:otherwise> 
-                </c:choose>
+                    <strong><fmt:message key="enter_link"/>:</strong>
+                    <form action="/<%= contextPath%>/clientes/mudaLinkConsulta?data_consulta=<c:out value='${consulta.data_consulta}'/>&cpf_profissional=<c:out value='${consulta.cpf_profissional}' />&hora=<c:out value='${consulta.horario}'/>" method="POST" id="register-prof" >
+                    <input name="link_meet" class="link" type="url" value="<c:out value='${consulta.link_meet}'/>">
+                    </form>
+                    <button class ="saveLink" form='register-prof' type="submit"> 
+                        Alterar
+                    </button>
+                        
                 </div>
                 <div class="cancel">
                     <a class="save" type="cancel" href="/<%= contextPath%>/clientes/cancelaConsulta?data_consulta=<c:out value='${consulta.data_consulta}'/>&cpf_profissional=<c:out value='${consulta.cpf_profissional}' />&hora=<c:out value='${consulta.horario}'/>" 

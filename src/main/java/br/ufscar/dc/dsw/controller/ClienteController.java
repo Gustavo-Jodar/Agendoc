@@ -74,6 +74,8 @@ public class ClienteController extends HttpServlet {
                 case "/cancelaConsulta":
                     cancelaConsulta(request, response);
                     break;
+                case "/mudaLinkConsulta":
+                    mudaLinkConsulta(request, response);
                 default:
                     apresentaPaginaCliente(request, response);
                     break;
@@ -158,11 +160,14 @@ public class ClienteController extends HttpServlet {
         // recolhendo horário escolhido
         Integer horario_consulta = Integer.parseInt(request.getParameter("horario"));
 
+        // link do meet novo
+        String link_meet = request.getParameter("link_meet");
+
         try {
             Date data_consulta = sdf.parse(startDateStrConsulta);
 
             Consulta consulta = new Consulta(profissional_escolhido.getCpf(), usuarioLogado.getCpf(), data_consulta,
-                    horario_consulta, "ainda sem link",
+                    horario_consulta, link_meet,
                     profissional_escolhido.getnome(), usuarioLogado.getnome());
 
             consultaDAO.insert(consulta);
@@ -236,6 +241,39 @@ public class ClienteController extends HttpServlet {
             consultaDAO.deleteConsulta(consulta);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/apresentaPaginaCliente");
+            dispatcher.forward(request, response);
+        } catch (ParseException e) {
+            throw new ServletException(e);
+        }
+    }
+
+    private void mudaLinkConsulta(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException {
+
+        Cliente usuarioLogado = (Cliente) request.getSession().getAttribute("usuarioLogado");
+
+        // hora da consulta
+        Integer hora = Integer.parseInt(request.getParameter("hora"));
+
+        // dados do profissional
+        String cpf_profissional = request.getParameter("cpf_profissional");
+
+        // link do meet novo
+        String link_meet = request.getParameter("link_meet");
+
+        // data da consulta
+        String startDateStrConsulta = request.getParameter("data_consulta");
+        startDateStrConsulta = startDateStrConsulta.replace('/', '-');
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date data_consulta = (Date) sdf.parse(startDateStrConsulta);
+            Consulta consulta = new Consulta(cpf_profissional, usuarioLogado.getCpf(), data_consulta, hora, link_meet,
+                    "ciclano", "fulano");
+
+            consultaDAO.changeLink(consulta);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/apresentaConsulta");
             dispatcher.forward(request, response);
         } catch (ParseException e) {
             throw new ServletException(e);
