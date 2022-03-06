@@ -62,6 +62,7 @@
                                         <option value="<c:out value='${line}'/>">${line}h00</option>
                                     </c:forEach>
                             </select>
+                            <legend><fmt:message key="add_link"/></legend>
                             <input name="link_meet" class="link" type="url" value="" required> 
                             </form>
                             <button type="submit" class="save" form="register-prof" value="Cadastrar"><fmt:message key="schedule_appointment"/></button>
