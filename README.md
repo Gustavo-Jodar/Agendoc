@@ -1,6 +1,6 @@
 <h1>Sistema de Agendamento de Profissionais Liberais!</h1>
 
-Grupo:
+Grupo WEB 1:
 Sophia S. Schuster 760936
 Gustavo Vieira Jodar 769678
 
