@@ -65,7 +65,6 @@ public class ProfissionalController extends HttpServlet {
                 case "/cancelaConsulta":
                     cancelaConsulta(request, response);
                     break;
-                // passível de remoção
                 default:
                     apresentaPaginaProfissional(request, response);
                     break;

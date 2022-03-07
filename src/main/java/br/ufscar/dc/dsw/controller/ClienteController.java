@@ -170,7 +170,7 @@ public class ClienteController extends HttpServlet {
         // recolhendo horário escolhido
         Integer horario_consulta = Integer.parseInt(request.getParameter("horario"));
 
-        // link do meet novo
+        // link do meet
         String link_meet = request.getParameter("link_meet");
         Consulta consulta = null;
         try {
@@ -216,19 +216,15 @@ public class ClienteController extends HttpServlet {
 
             Address[] toUser = InternetAddress // Destinatário(s)
                     .parse(email_profissional + ", " + email_cliente);
-            // para colocar mais de um email como desinatario (profissional e cliente) fazer
-            // assim:
-            // Address[] toUser = InternetAddress //Destinatário(s)
-            // .parse("seuamigo@gmail.com, seucolega@hotmail.com,
-            // seuparente@yahoo.com.br");
 
             message.setRecipients(Message.RecipientType.TO, toUser);
             message.setSubject("Uma consulta foi marcada - Agendoc");// Assunto
-            message.setText("Olá " + usuarioLogado.getnome()
-                    + "! Seguem as informacoes a respeito de sua consulta: Profissional: "
-                    + profissional_escolhido.getnome() + " Area: " + profissional_escolhido.getArea()
-                    + " Especialidade: " + profissional_escolhido.getEspecialidade() + " Data e hora de sua consulta: "
-                    + consulta.getData_consulta() + " " + consulta.getHorario() + "h00min");
+            message.setText("Olá " + usuarioLogado.getnome() + "\n"
+                    + "Seguem as informacoes a respeito de sua consulta: \n Profissional: "
+                    + profissional_escolhido.getnome() + " \n Area: " + profissional_escolhido.getArea()
+                    + " Especialidade: " + profissional_escolhido.getEspecialidade() + "\n Data e hora de sua consulta: "
+                    + consulta.getData_consulta() + " " + consulta.getHorario() + "h00min" + "\n Na data e hora da consulta entre neste link:" 
+                    + link_meet + "\n \n Qualquer coisa estamos aqui! \n Atenciosamente Agendoc.");
 
             Transport.send(message);
 

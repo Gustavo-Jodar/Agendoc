@@ -101,10 +101,6 @@ public class UserController extends HttpServlet {
                  case "/verificaLogin":
                     verificaLogin(request, response);
                     break;
-                // salva curriculo pdf do profissional
-                // case "/fileuploadservlet":
-                // fileUploadServlet(request,response);
-                // break;
                 // rota para salvar Profissional no BD
                 case "/saveProfissional":
                     saveProfissional(request, response);
@@ -170,8 +166,7 @@ public class UserController extends HttpServlet {
         User usuarioLogado = (User) request.getSession().getAttribute("usuarioLogado");
 
         if (usuarioLogado != null) {
-            // se ja tiver logado abre modal pra marcar consulta. Modal n ta abrindo, acho
-            // que é pq #abrirModal não funciona aqui
+            // se ja tiver logado abre link pra marcar consulta. 
             String cpf_profissional = request.getParameter("cpf");
             Profissional profissional_escolhido = daoProfissional.getByCpf(cpf_profissional);
             request.setAttribute("profissionalEscolhido", profissional_escolhido);
@@ -352,8 +347,9 @@ public class UserController extends HttpServlet {
             Part filePart = request.getPart("file");
             String fileName = filePart.getSubmittedFileName();
 
-            for (Part part : request.getParts()) { // FALTA ESCREVER O COM A QUANTIDADE
+            for (Part part : request.getParts()) { 
                 part.write("/home/gustavo/Documentos/facul/WEB1/T1/Agendoc/src/main/webapp/uploads/" + novoNome);
+                ///Users/sophiaschuster/Agendoc/src/main/webapp/uploads/"
             }
         } catch (RuntimeException | IOException e) {
 

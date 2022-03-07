@@ -19,8 +19,6 @@
     --color-box-footer: #FAFAFC;
     --color-small-info: #C1BCCC;
     font-size: 60%; 
-    /* comeco as coisas em 60% para trabalhar o layout no sentido "mobile first"
-    ou seja, a aplicacao sera responsiva*/
 }
 /*  root cria variaveis para as cores, depois para utilizar elas basta chamar var(nome-dela) 
 ao inves do nome da cor como blue */

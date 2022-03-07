@@ -211,7 +211,6 @@ public class AdminController extends HttpServlet {
             List<Cliente> listaClientes = daoCliente.getAll();
             request.setAttribute("listaClientes", listaClientes);
 
-            // NAO É NO LISTA QUE É PRA REDIRECIONAAAAAAAAAAAAAAAAAAAR
             response.sendRedirect("listaClientes");
 
         } catch (RuntimeException | ParseException | IOException e) {
@@ -226,7 +225,7 @@ public class AdminController extends HttpServlet {
 
     }
 
-    // função para edição de rpofissional
+    // função para edição de profissional
     private void editaProfissional(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         request.setCharacterEncoding("UTF-8");
@@ -264,7 +263,6 @@ public class AdminController extends HttpServlet {
             request.setAttribute("mensagens", erro);
             RequestDispatcher rd = request.getRequestDispatcher("/admins/apresentaEdicaoProfissional");
             rd.forward(request, response);
-            // throw new ServletException(e);
         }
     }
 
