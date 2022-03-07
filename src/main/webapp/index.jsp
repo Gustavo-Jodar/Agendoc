@@ -31,10 +31,6 @@
             </a>
         </div>
 
-        <p class="total-connections">
-            Estamos muito felizes por te ter conosco! 
-        </p>
-
         </div>
     </fmt:bundle>
 </body>
