@@ -7,4 +7,4 @@ Então é só rodar:
 
 $ mvn tomcat7:deploy
 
-Para que seja possivel cadastrar um profissional é preciso ir no UserController.java localizado em: .../Agendoc/src/main/java/br/ufscar/dc/dsw/controller/UserController.java e modificar na linha 351 o inicio do caminho onde o PDF é salvo para um que exista em seu computador. 
+Para que seja possivel se cadastrar como um profissional é preciso ir no UserController.java localizado em: .../Agendoc/src/main/java/br/ufscar/dc/dsw/controller/UserController.java e modificar na linha 351 o inicio do caminho onde o PDF é salvo para um que exista em seu computador. 
