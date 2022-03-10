@@ -97,8 +97,8 @@ public class UserController extends HttpServlet {
                 case "/verificaEstaLogado":
                     verificaEstaLogado(request, response);
                     break;
-                //verifica se o usuario deve ser encaminhado para o login ou perfil:
-                 case "/verificaLogin":
+                // verifica se o usuario deve ser encaminhado para o login ou perfil:
+                case "/verificaLogin":
                     verificaLogin(request, response);
                     break;
                 // rota para salvar Profissional no BD
@@ -166,7 +166,7 @@ public class UserController extends HttpServlet {
         User usuarioLogado = (User) request.getSession().getAttribute("usuarioLogado");
 
         if (usuarioLogado != null) {
-            // se ja tiver logado abre link pra marcar consulta. 
+            // se ja tiver logado abre link pra marcar consulta.
             String cpf_profissional = request.getParameter("cpf");
             Profissional profissional_escolhido = daoProfissional.getByCpf(cpf_profissional);
             request.setAttribute("profissionalEscolhido", profissional_escolhido);
@@ -179,7 +179,7 @@ public class UserController extends HttpServlet {
 
     }
 
-     private void verificaLogin(HttpServletRequest request, HttpServletResponse response)
+    private void verificaLogin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // checa se já tem um usuário logado, se tiver redireciona para a página dele
         User usuarioLogado = (User) request.getSession().getAttribute("usuarioLogado");
@@ -340,16 +340,16 @@ public class UserController extends HttpServlet {
         String especialidade = request.getParameter("especialidade");
 
         Random random = new Random();
-        Integer n = random.nextInt(10000);
+        Integer n = random.nextInt(100000);
         String novoNome = "curriculo-" + n.toString() + ".pdf";
 
         try {
             Part filePart = request.getPart("file");
             String fileName = filePart.getSubmittedFileName();
 
-            for (Part part : request.getParts()) { 
+            for (Part part : request.getParts()) {
                 part.write("/home/gustavo/Documentos/facul/WEB1/T1/Agendoc/src/main/webapp/uploads/" + novoNome);
-                ///Users/sophiaschuster/Agendoc/src/main/webapp/uploads/"
+                /// Users/sophiaschuster/Agendoc/src/main/webapp/uploads/"
             }
         } catch (RuntimeException | IOException e) {
 

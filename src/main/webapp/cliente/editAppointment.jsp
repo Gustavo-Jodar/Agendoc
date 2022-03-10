@@ -50,7 +50,7 @@
                     <input name="link_meet" class="link" type="url" value="<c:out value='${consulta.link_meet}'/>">
                     </form>
                     <button class ="saveLink" form='register-prof' type="submit"> 
-                        Alterar
+                        <fmt:message key="alter"/>
                     </button>
                         
                 </div>

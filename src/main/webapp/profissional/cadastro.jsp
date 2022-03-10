@@ -53,7 +53,7 @@
                             </div>
                             <div class="input-block">
                                 <label for="senha"><fmt:message key="password"/></label>
-                                <input name="senha" id="senha" required>
+                                <input name="senha" id="senha" type="password" required>
                             </div>
                             <!-- <div class="input-block">
                                 <label for="avatar">Curriculo em PDF</label>
@@ -97,14 +97,14 @@
 
                     </form>            
                     <c:if test="${mensagens.existeErros}">
-                        <div id="erro">
-                            <div>
-                                <c:forEach var="erro" items="${mensagens.erros}">
-                                    <div class="alerta" > ${erro} </div>
-                                    </c:forEach>
-                            </div>
-                        </div>
-                    </c:if> 
+            <div id="erro">
+                <div>
+                    <c:forEach var="erro" items="${mensagens.erros}">
+                        <div class="alerta" > ${erro} </div>
+                        </c:forEach>
+                </div>
+            </div>
+        </c:if>  
                 </fmt:bundle>
                 <footer>
                     <button type="submit" form="register-prof"><fmt:message key="save_register"/></button>

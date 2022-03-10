@@ -60,7 +60,7 @@
                         </div>
                         <div class="input-block">
                             <label for="pass"><fmt:message key="password"/></label>
-                            <input name="pass" id="pass" required>
+                            <input name="pass" id="pass" type="password" required>
                         </div>
                         <div class="input-block">
                             <label for="birth"><fmt:message key="birth"/></label>

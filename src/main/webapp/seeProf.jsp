@@ -37,12 +37,12 @@
                         <label for="area">Area</label>
                         <select name="area" id="area">
                             <option value=""><fmt:message key="select_option"/></option>
-                            <option value="Medicina">Medicina</option>
-                            <option value="Advocacia">Advocacia</option>
-                            <option value="Psicologia">Psicologia</option>
-                            <option value="Educacao">Educação</option>
-                            <option value="Nutricao">Nutrição</option>
-                            <option value="Terapia">Terapia</option>
+                            <option value="Medicina"><fmt:message key="Medicina"/></option>
+                            <option value="Advocacia"><fmt:message key="Advocacia"/></option>
+                            <option value="Psicologia"><fmt:message key="Psicologia"/></option>
+                            <option value="Educacao"><fmt:message key="Educacao"/></option>
+                            <option value="Nutricao"><fmt:message key="Nutricao"/></option>
+                            <option value="Terapia"><fmt:message key="Terapia"/></option>
                         </select>
                     </div>
                     

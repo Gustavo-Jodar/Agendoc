@@ -15,7 +15,7 @@
 	<div align="center">
 		<h1><fmt:message key="professional_crud"/></h1>
 		<h2>
-			<a href="/<%=contextPath%>//admins/showPaginaAdmin">Voltar</a> &nbsp;&nbsp;&nbsp; 
+			<a href="/<%=contextPath%>//admins/showPaginaAdmin"><fmt:message key="back"/></a> &nbsp;&nbsp;&nbsp; 
 		</h2>
 	</div>
 	<div align="center">
