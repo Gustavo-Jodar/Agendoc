@@ -60,7 +60,7 @@
                                 <input name="avatar" id="avatar" type="url">
                             </div> -->
                             <div class="input-block">
-                                <label for="cpf"><fmt:message key="id_cpf"/><small><fmt:message key="just_number"/></small></label>
+                                <label for="cpf"><fmt:message key="id_cpf"/></label>
                                 <input name="cpf" id="cpf" type="number" required>
                             </div>
                             <div class="input-block">
